@@ -1,0 +1,37 @@
+@import "../../helpers/mixins.scss";
+@import "../../helpers/animations.scss";
+
+.container {
+  cursor: pointer;
+  position: fixed;
+  right: 0;
+  bottom: 20px;
+  opacity: 0;
+  pointer-events: none;
+  padding: 24px;
+  width: fit-content;
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+
+
+    padding: 24px;
+    background-color: rgba($color: #ffffff, $alpha: 0.7);
+
+    background-image: url("../../../public/assets/to_top.svg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+
+  &_visible {
+    animation: appear 1s forwards;
+  }
+}

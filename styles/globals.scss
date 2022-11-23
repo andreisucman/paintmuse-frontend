@@ -1,0 +1,52 @@
+@import "./helpers/normalize.scss";
+@import "./helpers/range.scss";
+@import "./helpers/checkbox.scss";
+@import "./helpers/mixins.scss";
+
+@font-face {
+  font-family: 'Baloo Bhai';
+  src: url('./helpers/fonts/BalooBhai-Regular.woff2') format('woff2'),
+      url('./helpers/fonts/BalooBhai-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  --grey-light: #e7e7e7;
+  --grey: #dddddd;
+  --blue: #2F9ACD;
+  --blue-dark: #000000;
+  --white: #FFFFFF;
+  --black: #000000;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 1920px;
+  margin: auto;
+}
+
+.filter {
+    min-width: 200px;
+
+  @include mobile {
+    max-width: unset;
+    min-width: 100%;
+  }
+}
+
+.loading_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 360px;
+  width:100%;
+  height: 100%;
+}

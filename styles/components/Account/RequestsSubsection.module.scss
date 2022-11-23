@@ -1,0 +1,63 @@
+@import "../../helpers/animations.scss";
+@import "../../helpers/mixins.scss";
+
+.container {
+  &__title {
+    font-size: 1.5rem;
+    padding: 24px 0 16px;
+    cursor: default;
+  }
+
+  &__subsection_title {
+    cursor: default;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(300px, auto));
+    place-items: center;
+    grid-auto-flow: row;
+
+    gap: 16px;
+    padding: 24px 24px 0 24px;
+    border-radius: 4px;
+
+    @include tablet {
+      grid-template-columns: repeat(2, minmax(300px, auto));
+    }
+
+    @include mobile {
+      grid-template-columns: repeat(2, auto);
+    }
+  }
+
+  &__image_div {
+    min-width: 100px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  &__image {
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    transition: all 1s;
+    
+    &:hover {
+      border: 2px solid var(--blue);
+    }
+  }
+  
+  &__image_description {
+    text-align: center;
+    padding: 4px;
+    width: 100%;
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: default;
+  }
+}

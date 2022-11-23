@@ -1,0 +1,51 @@
+@import "../../helpers/mixins.scss";
+@import "../../helpers/animations.scss";
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  
+  @include tablet {
+    width: 100%;
+  }
+
+  &__button {
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 14px 24px;
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    border: 1px solid var(--black);
+    background-color: transparent;
+    transition: all 1s;
+
+    @include tablet {
+      max-width: unset;
+    }
+
+    &:hover {
+      border: 1px solid var(--blue);
+      color: var(--blue);
+    }
+
+    &_download {
+      border: 1px solid var(--blue);
+
+      &:hover {
+        background-color: var(--blue);
+        color: var(--white);
+      }
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}

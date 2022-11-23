@@ -1,0 +1,102 @@
+@import "../../helpers/mixins.scss";
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: 16px;
+  width: fit-content;
+  max-width: 1400px;
+  padding: 0 16px 16px 16px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(1, minmax(150px, 1fr));
+  }
+
+  &_modal {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    @include tablet {
+      flex-direction: row;
+    }
+  }
+    
+  &__image_div {
+    max-width: 400px;
+    height: 100%;
+    min-width: 100px;
+  }
+
+  &__load_more_button {
+    cursor: pointer;
+    padding: 12px 24px;
+    color: var(--black);
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.5s;
+    font-size: 1.2rem;
+
+    @include tablet {
+      flex-basis: 80%;
+    }
+    
+    &:hover {
+      filter: invert(79%) sepia(36%) saturate(6571%) hue-rotate(169deg) brightness(73%) contrast(92%);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+
+    &::before {
+      content: "🠣";
+      color: var(--black);
+      left: 8px;
+      top: 10px;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
+    height: fit-content;
+    border: 2px solid transparent;
+    transition: all 1s;
+    
+    &:hover {
+      border: 2px solid var(--blue);
+    }
+  }
+
+  &__image_query, &__image_description {
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__image_description {
+    padding: 0 8px;
+  }
+}

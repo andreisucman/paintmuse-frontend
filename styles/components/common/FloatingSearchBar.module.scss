@@ -1,0 +1,54 @@
+@import "../../helpers/mixins.scss";
+@import "../../helpers/animations.scss";
+
+.container {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    padding: 24px;
+    background-color: var(--white);
+
+    @include mobile {
+      padding: 16px 16px 48px;
+    }
+  }
+
+  &_visible {
+    animation: appear 1s forwards;
+  }
+
+  &__close {
+    display: none;
+
+    cursor: pointer;
+    position: fixed;
+    right: 24px;
+    bottom: 16px;
+
+    padding: 8px;
+
+    background-image: url("../../../public/assets/cross.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+    @include tablet {
+      display: block;
+      position: absolute;
+    }
+  }
+}

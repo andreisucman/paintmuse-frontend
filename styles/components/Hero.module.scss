@@ -1,0 +1,69 @@
+@import "../helpers/mixins.scss";
+
+.container {
+  cursor: default;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 275px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: none;
+
+  background-image: url("../../public/assets/bgi.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @include tablet {
+    height: 350px;
+  }
+
+  &__wrapper {
+    padding: 16px;
+    text-align: center;
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+
+  &__logo_image {
+    display: block;
+
+    @include mobile {
+      width: 160px;
+    }
+  }
+
+  &__video {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+
+    @include tablet {
+      width: unset;
+    }
+  }
+
+  &__slogan {
+    font-family: "Baloo Bhai";
+    color: var(--white);
+    font-weight: 500;
+    font-size: 2.5rem;
+    padding: 8px;
+    line-height: 120%;
+  }
+
+  &__slogan_description {
+    color: var(--white);
+    font-size: 1.25rem;
+    padding: 8px;
+    line-height: 160%;
+  }
+}
