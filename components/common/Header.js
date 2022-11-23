@@ -1,9 +1,10 @@
 import Parse from "parse";
-import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 import logo from "../../public/logo.webp";
 import { useGetMethods, useGetCurrentState } from "./ContextProvider";
+import { useGetCurrentUser } from "../../helpers/useCurrentUser";
 import styles from "../../styles/components/common/Header.module.scss";
 import { useIsLoggedIn } from "../../helpers/useCurrentUser";
 import { useRouter } from "next/router";
@@ -12,6 +13,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const currentState = useGetCurrentState();
+  const currentUser = useGetCurrentUser();
   const methods = useGetMethods();
   const menuRef = useRef();
   const burgerRef = useRef();
@@ -112,7 +114,7 @@ export default function Header() {
                   }
                 >
                   <Link
-                    href="/edit-existing-art"
+                    href={currentUser ? "/edit-existing-art" : "/login"}
                     onClick={() => handleActiveLink("/edit-existing-art")}
                     className={styles.container__product_buttons_list_link}
                   >
@@ -127,7 +129,7 @@ export default function Header() {
                   }
                 >
                   <Link
-                    href="/variate-composition"
+                    href={currentUser ? "/variate-composition" : "/login"}
                     onClick={() => handleActiveLink("/variate-composition")}
                     className={styles.container__product_buttons_list_link}
                   >

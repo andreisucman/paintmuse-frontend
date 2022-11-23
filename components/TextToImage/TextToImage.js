@@ -11,7 +11,7 @@ export default function TextToImage() {
   const [galleryImages, setGalleryImages] = useState([]);
   const { setQuery, setStyle, setMedium, fetchGalleryImages, setIsLoading } =
     useGetMethods();
-  const { style, medium, imageCount, isLoading, immediateResult } =
+  const { style, medium, isLoading, immediateResult } =
     useGetCurrentState();
   const [page, setPage] = useState(1);
 

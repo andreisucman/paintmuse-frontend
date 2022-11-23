@@ -1,6 +1,7 @@
 import axios from "axios";
 import Counter from "./Counter";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import FilterField from "./FilterField";
 import { useGetMethods, useGetCurrentState } from "./ContextProvider";
 import { useGetCurrentUser } from "../../helpers/useCurrentUser";
@@ -22,6 +23,7 @@ export default function SearchField({
   const { imageCount, query, prompt, searchFieldOptions, isError } =
     useGetCurrentState();
   const currentUser = useGetCurrentUser();
+  const router = useRouter();
 
   useEffect(() => {
     handleSetPrompt(
@@ -34,6 +36,14 @@ export default function SearchField({
       setPrompt
     );
   }, [medium, style, prompt, query, setMedium, setPrompt, setQuery, setStyle]);
+
+  function handleGenerate() {
+    if (!currentUser) {
+      router.push("/login");
+    } else {
+      handleRequestImages();
+    }
+  }
 
   async function handleRequestImages() {
     if (!currentUser) return;
@@ -104,7 +114,7 @@ export default function SearchField({
         <button
           type="submit"
           className={styles.search__button}
-          onClick={handleRequestImages}
+          onClick={handleGenerate}
         >
           <span className={styles.search__button_text}>{text}</span>
         </button>
