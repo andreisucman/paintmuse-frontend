@@ -23,7 +23,7 @@ export default function Header() {
 
   useEffect(() => {
     Parse.initialize(process.env.NEXT_PUBLIC_APP_ID);
-    Parse.serverURL = process.env.NEXT_PUBLIC_SERVER_URL_PARSE;
+    Parse.serverURL = `${process.env.NEXT_PUBLIC_SERVER_URL}/parse`;
   }, []);
 
   function toggleMenu() {

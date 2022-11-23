@@ -91,7 +91,7 @@ export default function Login() {
     if (!validation) return;
 
     Parse.initialize(process.env.NEXT_PUBLIC_APP_ID);
-    Parse.serverURL = process.env.NEXT_PUBLIC_SERVER_URL_PARSE;
+    Parse.serverURL = `${process.env.NEXT_PUBLIC_SERVER_URL}/parse`;
 
     try {
       let response;

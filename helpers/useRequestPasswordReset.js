@@ -7,7 +7,7 @@ export async function useRequestPasswordReset({
   savedEmail,
 }) {
   Parse.initialize(process.env.NEXT_PUBLIC_APP_ID);
-  Parse.serverURL = process.env.NEXT_PUBLIC_SERVER_URL_PARSE;
+  Parse.serverURL = `${process.env.NEXT_PUBLIC_SERVER_URL}/parse`;
 
   try {
     await Parse.User.requestPasswordReset(loginPage ? email : savedEmail);
