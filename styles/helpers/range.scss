@@ -1,0 +1,54 @@
+// Resetting default range styles
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+// Thumb styling - chrome
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid var(--blue);
+  height: 32px;
+  width: 16px;
+  border-radius: 4px;
+  background: var(--white);
+  cursor: pointer;
+  margin-top: -12px;
+}
+
+// Thumb styling - firefox
+input[type=range]::-moz-range-thumb {
+  border: 1px solid var(--black);
+  height: 32px;
+  width: 16px;
+  border-radius: 4px;
+  background: var(--white);
+  cursor: pointer;
+}
+
+// Track styling - chrome
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background: var(--blue);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+// Track styling - firefox
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  background: var(--blue);
+  border-radius: 4px;
+  cursor: pointer;
+}

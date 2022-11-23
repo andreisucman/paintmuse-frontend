@@ -1,0 +1,118 @@
+@import "./helpers/mixins.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height:100%;
+
+  &__title {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    flex-grow: 1;
+    padding: 56px 16px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--black);
+    font-family: "Montserrat", "Verdana", "sans-serif";
+
+    max-width: 500px;
+    width: 100%;
+
+    @include mobile {
+      max-width: unset
+    }
+  }
+
+  &__info {
+    align-self: flex-start;
+
+    &_link {
+      color: var(--blue);
+    }
+
+    &_item {
+      padding: 4px 0;
+
+      &_p_top_24 {
+        padding-top: 24px;
+      }
+
+      &_faster {
+        padding-bottom: 24px;
+        line-height: 160%;
+      }
+    }
+  }
+
+  &__input, &__message {
+    background-color: var(--grey);
+    padding: 16px;
+    border: none;
+    resize: none;
+    color: inherit;
+    font-family: inherit;
+    border-radius: 4px;
+  }
+
+  &__message {
+    height: 150px;
+  }
+
+  &__submit {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    border: 1px solid var(--blue);
+    outline: none;
+    background-color: transparent;
+    width: 100%;
+    flex-basis: 30%;
+    margin-left: auto;
+    padding: 16px;
+    border-radius: 4px;
+    color: inherit;
+    transition: all 1s;
+
+    &:hover {
+      background-color: var(--blue);
+      border: 1px solid var(--blue);
+      color: var(--white);
+    }
+
+    &_wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    &_ico {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__submission_message {
+    flex-basis: 70%;
+    text-align: center;
+
+    @include mobile {
+      padding: 0 8px;
+    }
+  }
+}
+
+

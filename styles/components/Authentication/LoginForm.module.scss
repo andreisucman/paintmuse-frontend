@@ -1,0 +1,64 @@
+@import "../../helpers/mixins.scss";
+@import "../../helpers/animations.scss";
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  &__input {
+    border: none;
+    background-color: var(--grey);
+    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid transparent;
+
+    &_error {
+      border: 1px solid red;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    padding: 16px 24px;
+    background: linear-gradient(217deg, #AB0830, rgba(255,0,0,0) 90.71%),
+    linear-gradient(127deg, #1C91C8, rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, #CE7E7A, rgba(0,0,255,0) 70.71%);
+    background-size: 150%;
+    color: var(--white);
+    border: none;
+    width: 100%;
+    height:fit-content;
+
+    border-radius: 4px;
+    transition: all 1s;
+    animation: flipColorsBack 1s ease forwards;
+
+    &:hover {
+      animation: flipColors 1s ease forwards;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+
+  &__forgot_password {
+    cursor: pointer;
+    padding: 8px;
+    text-align: center;
+    font-size: 1rem;
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+}

@@ -1,0 +1,122 @@
+@import "./helpers/animations.scss";
+
+.container {
+  cursor: default;
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  
+  background-color: var(--white);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    height: fit-content;
+    width: fit-content;
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 32px 32px 40px;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    padding: 24px 0 16px;
+    text-align: center;
+  }
+
+  &__close {
+    cursor: pointer;
+    position: fixed;
+    left: 24px;
+    top: 16px;
+    padding: 12px;
+    z-index: 10;
+
+    background-image: url("../public/assets/cross.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    outline: none;
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.selection_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+
+  &__button {
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid var(--black);
+    transition: all 1s;
+
+    &:hover {
+      border: 1px solid var(--blue);
+      color: var(--blue);
+    }
+
+    &_active {
+      border: 1px solid var(--blue);
+      color: var(--blue);
+    }
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  &__input {
+    border: none;
+    background-color: var(--grey);
+    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid transparent;
+
+    &_error {
+      border: 1px solid red;
+    }
+  }
+}
+
+.terms {
+  &__div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 8px 16px 8px;
+    border: 1px solid transparent;
+    margin-bottom: 8px;
+
+    &_error {
+      border: 1px solid red;
+      border-radius: 4px;
+    }
+  }
+
+  &__link {
+    font-size: inherit;
+    color: var(--blue);
+  }
+}

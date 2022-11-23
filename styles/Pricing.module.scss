@@ -1,0 +1,138 @@
+.container {
+  width: 100%;
+  flex-grow: 1;  
+  background-color: var(--white);
+  background-color: var(--white);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    height: fit-content;
+    width: fit-content;
+    border-radius: 8px;
+    padding: 32px;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: 1.1rem;
+    text-align: center;
+
+    &_link {
+      color: var(--blue);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    height: 100%;
+    width: fit-content;
+    height: fit-content;
+    
+    margin: auto;
+    padding: 32px 0;
+  }
+
+  &__close {
+    cursor: pointer;
+    position: fixed;
+    left: 24px;
+    top: 16px;
+    padding: 12px;
+    z-index: 10;
+
+    background-image: url("../public/assets/cross.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    outline: none;
+    border: none;
+    background-color: transparent;
+  }
+
+  &__image {
+    border-radius: 4px;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__choose_image_label {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__choose_image {
+    &_input {
+      display: none;
+    }
+
+    &_label {
+      cursor: pointer;
+      width: fit-content;
+      padding: 8px 16px;
+      background-color: transparent;
+      border: 1px solid var(--black);
+      border-radius: 4px;
+      transition: all 1s;
+
+      &:hover {
+        border: 1px solid var(--blue);
+        color: var(--blue);
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+
+      -webkit-user-select: none; /* Safari */        
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__button {
+    cursor: pointer;
+    padding: 16px 24px;
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+    color: var(--white);
+    width: 100%;
+    max-width: 200px;
+
+    border-radius: 4px;
+    transition: all 1s;
+
+    &:hover {
+      background-color: var(--blue-dark);
+      border: 1px solid var(--blue-dark);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+}

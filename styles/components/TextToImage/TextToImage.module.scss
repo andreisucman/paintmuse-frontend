@@ -1,0 +1,10 @@
+.section {
+  display: flex;
+  flex-grow: 1;
+  align-items: flex-start;
+  background-color: var(--white);
+
+  &__wrapper {
+    width: 100%;
+  }
+}

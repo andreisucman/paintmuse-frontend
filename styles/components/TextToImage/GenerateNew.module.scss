@@ -1,0 +1,63 @@
+@import "../../helpers/mixins.scss";
+
+.generate_new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  padding: 32px 0 0 0;
+}
+
+.results {
+  width: 100%;
+  overflow: hidden;
+  max-width: 1400px;
+
+  &__wrapper {
+    overflow-x: auto;
+  }
+
+  &__gallery {
+    position: relative;
+
+    display: flex;
+    gap: 8px;
+    width: fit-content;
+    margin: auto;
+
+    @include tablet {
+      justify-content: unset;
+    }
+  }
+
+  &__image_div {
+    max-width: 450px;
+    min-width: 450px;
+    width: 100%;
+    height: 100%;
+    display:flex;
+    justify-content: center;
+
+    @include tablet {
+    }
+
+    @include mobile {
+      min-width: 100%;
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    transition: all 1s;
+
+    &:hover {
+      border: 2px solid var(--blue);
+    }
+  }
+}

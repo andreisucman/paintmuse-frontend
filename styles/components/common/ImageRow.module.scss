@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+
+  &__vertical {
+    flex-direction: c;
+  }
+
+  &__image_div {
+    max-width: 300px;
+  }
+
+  &__image {
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  &__image_description {
+    text-align: center;
+    padding: 8px;
+    width: 100%;
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

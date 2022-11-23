@@ -1,0 +1,50 @@
+h1, h2, h3, p, ul, ol, a, table, tr, th, td {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+button,
+select,
+p,
+li,
+h1,
+h2,
+h3,
+span,
+div,
+input,
+label,
+a {
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Montserrat", "Helvetica", "sans-serif";
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+a:focus,
+a:visited,
+a:active {
+  outline: none;
+}
+
+body {
+  margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

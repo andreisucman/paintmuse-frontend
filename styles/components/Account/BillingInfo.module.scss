@@ -1,0 +1,55 @@
+@import "../../helpers/animations.scss";
+
+.container {
+  cursor: default;
+  
+  &__title {
+    font-size: 1.5rem;
+    padding: 24px 0 16px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--grey);
+    padding: 24px;
+    border-radius: 4px;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: minmax(200px, auto) 1fr auto;
+    padding: 8px;
+  }
+
+  &__button {
+    cursor: pointer;
+    padding: 16px 24px;
+    color: var(--white);
+    width: 100%;
+    margin-top: 8px;
+
+    border-radius: 4px;
+    transition: all 1s;
+    border: none;
+
+    background: linear-gradient(217deg, #AB0830, rgba(255,0,0,0) 90.71%),
+    linear-gradient(127deg, #1C91C8, rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, #CE7E7A, rgba(0,0,255,0) 70.71%);
+    background-size: 150%;
+    animation: flipColorsBack 1s ease forwards;
+
+    &:hover {
+      animation: flipColors 1s ease forwards;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+}

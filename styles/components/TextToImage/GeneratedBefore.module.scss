@@ -1,0 +1,52 @@
+@import "../../helpers/mixins.scss";
+@import "../../helpers/animations.scss";
+
+.generated_before {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 40px 0 32px 0;
+
+  &__title_div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+
+    @include mobile {
+      padding: 0 32px;
+    }
+  }
+
+  &__title {
+    font-family: "Baloo Bhai";
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 120%;
+  }
+
+  &__description {
+    font-size: 1.2rem;
+    line-height: 160%;
+  }
+
+  &__image_container {
+    // display: grid;
+    // grid-template-columns: repeat(4, minmax(150px, 1fr));
+    // gap: 16px;
+    // width: fit-content;
+    // max-width: 1400px;
+    // padding: 0 16px;
+
+    // @include tablet {
+    //   grid-template-columns: repeat(2, minmax(150px, 1fr));
+    // }
+
+    // @include mobile {
+    //   grid-template-columns: repeat(1, minmax(150px, 1fr));
+    // }
+  }
+}

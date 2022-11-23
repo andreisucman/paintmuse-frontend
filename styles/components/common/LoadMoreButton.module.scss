@@ -1,0 +1,46 @@
+@import "../../helpers/mixins.scss";
+@import "../../helpers/animations.scss";
+
+.container {
+  margin: auto;
+  cursor: pointer;
+  padding: 12px 24px;
+  color: var(--black);
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.5s;
+  font-size: 1.1rem;
+
+  margin-bottom: 8px;
+
+  @include tablet {
+    flex-basis: 80%;
+  }
+  
+  &:hover {
+    filter: invert(79%) sepia(36%) saturate(6571%) hue-rotate(169deg) brightness(73%) contrast(92%);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+
+  &::before {
+    content: "🠣";
+    color: var(--black);
+    left: 8px;
+    top: 10px;
+    font-size: 1.5rem;
+  }
+}

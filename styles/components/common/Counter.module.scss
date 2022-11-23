@@ -1,0 +1,41 @@
+@import "../../helpers/mixins.scss";
+@import "../../helpers/animations.scss";
+
+.counter {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  max-width: 135px;
+  height: max-content;
+  background-color: var(--grey-light);
+  border-radius: 4px;
+
+  @include mobile {
+    max-width: unset;
+  }
+
+  &__button {
+    cursor: pointer;
+    border: none;
+    padding: 16px;
+    min-width: 40px;
+    border-radius: 4px;
+    height: max-content;
+    background-color: var(--grey);
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
+
+  &__field {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-width: 40px;
+    width: 100%;
+    border: none;
+  }
+}
