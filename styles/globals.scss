@@ -14,6 +14,10 @@
   font-display: swap;
 }
 
+html {
+  font-family: "Montserrat", "Helvetica", "sans-serif";
+}
+
 * {
   --grey-light: #e7e7e7;
   --grey: #dddddd;
@@ -36,7 +40,7 @@
 }
 
 .filter {
-    min-width: 200px;
+  min-width: 200px;
 
   @include mobile {
     max-width: unset;
