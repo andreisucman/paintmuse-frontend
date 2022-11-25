@@ -3,6 +3,8 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import ContextProvider from "../components/common/ContextProvider";
 import "../styles/globals.scss";
+import "react-image-crop/src/ReactCrop.scss";
+import 'cropperjs/dist/cropper.css'
 
 function MyApp({ Component, pageProps }) {
   return (

@@ -23,8 +23,9 @@ export default function RequestsSubsection({
   }
 
   return (
-    <div className={styles.container__subsection}>
-      <p className={styles.container__subsection_title}>⮞ {title}</p>
+    <>
+    {galleryImages && galleryImages.length > 0 && <div className={styles.container__subsection}>
+      <p className={styles.container__subsection_title}>{title}</p>
       <div className={styles.container__content}>
         {galleryImages &&
           galleryImages.map((element) => (
@@ -60,7 +61,7 @@ export default function RequestsSubsection({
             </div>
           ))}
       </div>
-      <LoadMoreButton onClickHandler={loadMoreHandler} />
+      {galleryImages && galleryImages.length > 4 && <LoadMoreButton onClickHandler={loadMoreHandler} />}
       {showImageModal && (
         <ImageModalSearch
           selectedImage={selectedImage}
@@ -74,6 +75,7 @@ export default function RequestsSubsection({
           handleLoadMore={loadMoreHandler}
         />
       )}
-    </div>
+    </div>}
+    </>
   );
 }

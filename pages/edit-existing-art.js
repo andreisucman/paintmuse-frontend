@@ -1,8 +1,8 @@
 import Parse from "parse";
 import axios from "axios";
 import Link from "next/link";
-import Image from "next/image";
-import { useState, useEffect } from "react";
+// import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 import Buttons from "../components/common/Buttons";
 import placeholder from "../public/assets/placeholder_arrows.svg";
 import Counter from "../components/common/Counter";
@@ -32,7 +32,28 @@ export default function EditExistingArt() {
   const [readyToDownload, setReadyToDownload] = useState(false);
   const { imageCount, isLoading, isError } = useGetCurrentState();
   const { setIsLoading, setIsError } = useGetMethods();
+  const [editingStarted, setEditingStarted] = useState(false);
+  const [cropCompleted, setCropCompleted] = useState(false);
   const currentUser = useGetCurrentUser();
+  const canvasRef = useRef();
+
+  useEffect(() => {
+    if (!originalImage) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const canvasWidth = 600;
+    const canvasHeight = canvasWidth;
+    
+    const image = new Image();
+    image.src = originalUrl;
+    
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0, image.width, image.height);
+
+    };
+
+  }, [originalImage]);
 
   async function requestEdits() {
     if (!currentUser) return;
@@ -112,7 +133,7 @@ export default function EditExistingArt() {
           <div className={styles.container__image_div}>
             <div className={styles.container__gallery}>
               <div className={styles.container__gallery_wrapper}>
-                {isLoading ? (
+                {isLoading && (
                   <div className="loading_div">
                     <ReactLoading
                       width={100}
@@ -121,7 +142,13 @@ export default function EditExistingArt() {
                       color="#dddddd"
                     />
                   </div>
-                ) : (
+                )}
+                {!isLoading && editingStarted && (
+                  <div>
+                    <canvas ref={canvasRef} className={styles.canvas}></canvas>
+                  </div>
+                )}
+                {!isLoading && !editingStarted && (
                   <>
                     {isError && isError.value && <ErrorPopUp />}
                     <div className={styles.container__gallery_items}>
@@ -130,7 +157,7 @@ export default function EditExistingArt() {
                           key={element.imageId || Math.random()}
                           className={styles.container__gallery_image_div}
                         >
-                          <Image
+                          <img
                             src={element.url || placeholder}
                             width={600}
                             height={600}

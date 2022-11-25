@@ -1,0 +1,66 @@
+@import "../../helpers/mixins.scss";
+
+.container {
+  display: grid;
+  gap: 18px;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+
+  &__div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    max-height: 670px;
+  }
+}
+
+.crop div {
+  height: 100%;
+}
+
+.thumbnail {
+  overflow: hidden;
+
+  &__wrapper {
+    overflow: auto;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  
+  &__image {
+    cursor: pointer;
+    min-width: 100px;
+    min-height: 100px;
+  }
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 670px;
+  max-height: 670px;
+  object-fit: cover;
+  object-position: top;
+
+  @include tablet {
+    max-width: unset;
+    max-height: unset;
+  }
+
+  &_hide {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+}

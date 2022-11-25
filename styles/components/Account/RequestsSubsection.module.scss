@@ -8,6 +8,10 @@
     cursor: default;
   }
 
+  &__subsection {
+    padding: 8px 0;
+  }
+
   &__subsection_title {
     cursor: default;
   }
@@ -19,7 +23,7 @@
     grid-auto-flow: row;
 
     gap: 16px;
-    padding: 24px 24px 0 24px;
+    padding: 24px 0 24px 0;
     border-radius: 4px;
 
     @include tablet {
@@ -28,6 +32,7 @@
 
     @include mobile {
       grid-template-columns: repeat(2, auto);
+      padding: 16px 0;
     }
   }
 

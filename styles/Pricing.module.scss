@@ -1,3 +1,5 @@
+@import "./helpers/mixins.scss";
+
 .container {
   width: 100%;
   flex-grow: 1;  
@@ -13,6 +15,10 @@
     width: fit-content;
     border-radius: 8px;
     padding: 32px;
+
+    @include mobile {
+      padding: 48px 0;
+    }
   }
 
   &__title {
@@ -26,6 +32,7 @@
 
     &_link {
       color: var(--blue);
+      font-size: 1.1rem;
     }
   }
 
