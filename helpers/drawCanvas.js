@@ -2,68 +2,60 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
   const picture = new Image();
   picture.src = image;
 
+  const isMobile = window.innerWidth < 1024;
+  
+  if (isMobile) {
+    brushSize *= 0.5;
+  }
+
   const pos = { x: 0, y: 0 };
+  var isIdle = true;
 
   function setPosition(e) {
     const rect = canvas.getBoundingClientRect();
-    pos.x = e.pageX - rect.left;
-    pos.y = e.pageY - rect.top;
+    pos.x = e.clientX - rect.left;
+    pos.y = e.clientY - rect.top;
   }
-
-  const mobile = window.innerWidth < 1024;
-
-  if (mobile) {
-    brushSize = brushSize * 0.75;
-  }
-
-  var isIdle = true;
 
   picture.onload = () => {
     const ctx = canvas.getContext("2d");
+    ctx.globalCompositeOperation = "destination-out";
 
-    function drawstart(event) {
-      setPosition(event);
-      ctx.globalCompositeOperation = "destination-out";
+    function drawstart(e) {
+      setPosition(e)
 
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
       isIdle = false;
     }
-    function drawmove(event) {
-      setPosition(event);
-
+    function drawmove(e) {
       if (isIdle) return;
-
+      setPosition(e)
+      ctx.lineTo(pos.x, pos.y);
       ctx.lineWidth = brushSize;
       ctx.lineCap = "round";
       ctx.strokeStyle = "#fff";
-      ctx.lineTo(pos.x, pos.y);
       ctx.stroke();
-      ctx.restore();
     }
-
-    function drawend(event) {
-      setPosition(event);
-      
+    function drawend(e) {
+      setPosition(e)
       if (isIdle) return;
-      drawmove(event);
+      drawmove(e);
       isIdle = true;
     }
 
-    function touchstart(event) {
-      drawstart(event.touches[0]);
-    }
-    function touchmove(event) {
-      drawmove(event.touches[0]);
-      event.preventDefault();
-    }
-    function touchend(event) {
-      drawend(event.changedTouches[0]);
-    }
+    function touchstart(event) { drawstart(event.touches[0]) }
+    function touchmove(event) { drawmove(event.touches[0]); event.preventDefault(); }
+    function touchend(event) { drawend(event.changedTouches[0]) }
 
     function draw(e) {
       if (e.buttons !== 1) return;
-      setPosition(e);
+
+      if (isMobile) {
+        setPosition(e.touches[0]);
+      } else {
+        setPosition(e);
+      }
 
       ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
@@ -82,15 +74,13 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
     }
 
     if (isDraw) {
-      if (mobile) {
-        document.addEventListener("touchstart", touchstart, false);
-        document.addEventListener("touchmove", touchmove, false);
-        document.addEventListener("touchend", touchend, false);
-      } else {
-        document.addEventListener("mousedown", drawstart, false);
-        document.addEventListener("mousemove", drawmove, false);
-        document.addEventListener("mouseup", drawend, false);
-      }
+      document.addEventListener('touchstart', touchstart, false);
+      document.addEventListener('touchmove', touchmove, false);
+      document.addEventListener('touchend', touchend, false);        
+    
+      document.addEventListener('mousedown', drawstart, false);
+      document.addEventListener('mousemove', drawmove, false);
+      document.addEventListener('mouseup', drawend, false);
     }
 
     const scaleX = picture.naturalWidth / picture.width;
