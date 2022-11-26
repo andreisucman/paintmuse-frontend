@@ -76,8 +76,8 @@ export default function ImageModalSearch({
                 `${selectedImage.query
                   .charAt(0)
                   .toUpperCase()}${selectedImage.query.slice(1)}`}
-              {selectedImage.style && `| ${selectedImage.style}`}
-              {selectedImage.medium && `| ${selectedImage.medium}`}
+              {selectedImage.style && ` | ${selectedImage.style}`}
+              {selectedImage.medium && ` | ${selectedImage.medium}`}
             </p>
           )}
 

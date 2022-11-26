@@ -76,10 +76,10 @@ export default function ImageList({
               )}
             </div>
           ))}
-      </div>
       {!isGenerate && images && (
         <LoadMoreButton onClickHandler={handleLoadMore} />
       )}
+      </div>
     </>
   );
 }
