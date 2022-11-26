@@ -64,12 +64,12 @@ export default function ImageList({
                   onClick={() => handleSelect(element)}
                 >
                   Style:{" "}
-                  {element.style &&
+                  {element.style && element.style !== "Select style" &&
                     `${element.style
                       .charAt(0)
-                      .toUpperCase()}${element.style.slice(1)} |`}{" "}
-                  {element.medium &&
-                    `${element.medium
+                      .toUpperCase()}${element.style.slice(1)}`}{" "}
+                  {element.medium && element.medium !== "Select medium" &&
+                    ` | ${element.medium
                       .charAt(0)
                       .toUpperCase()}${element.medium.slice(1)}`}
                 </div>
