@@ -46,7 +46,7 @@
   &__navigation {
     @include tablet {
       position: absolute;
-      top: 72px;
+      top: 82px;
       left: 0;
       right: 0;
       padding: 16px;
@@ -108,12 +108,16 @@
   }
 
   &__product_buttons_list_link {
+    cursor: pointer;
     display: block;
     background-color: transparent;
-    cursor: pointer;
     border: none;
     outline: none;
     padding: 0;
+
+    width: 100%;
+    text-align: left;
+    padding: 2px 0;
   }
   
 .active_list_item {
@@ -165,7 +169,7 @@
     }
     
     @include mobile {
-      padding: 4px 8px;
+      padding: 7px 8px;
     }
   }
 

@@ -1,13 +1,13 @@
 import Parse from "parse";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import logo from "../../public/logo.webp";
 import { useGetMethods, useGetCurrentState } from "./ContextProvider";
 import { useGetCurrentUser } from "../../helpers/useCurrentUser";
-import styles from "../../styles/components/common/Header.module.scss";
 import { useIsLoggedIn } from "../../helpers/useCurrentUser";
-import { useRouter } from "next/router";
+import styles from "../../styles/components/common/Header.module.scss";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
