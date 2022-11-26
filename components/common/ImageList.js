@@ -64,11 +64,13 @@ export default function ImageList({
                   onClick={() => handleSelect(element)}
                 >
                   Style:{" "}
-                  {element.style && element.style !== "Select style" &&
+                  {element.style &&
+                    element.style !== "Select style" &&
                     `${element.style
                       .charAt(0)
                       .toUpperCase()}${element.style.slice(1)}`}{" "}
-                  {element.medium && element.medium !== "Select medium" &&
+                  {element.medium &&
+                    element.medium !== "Select medium" &&
                     ` | ${element.medium
                       .charAt(0)
                       .toUpperCase()}${element.medium.slice(1)}`}
@@ -76,9 +78,9 @@ export default function ImageList({
               )}
             </div>
           ))}
-      {!isGenerate && images && (
-        <LoadMoreButton onClickHandler={handleLoadMore} />
-      )}
+        {!isGenerate && images && (
+          <LoadMoreButton onClickHandler={handleLoadMore} />
+        )}
       </div>
     </>
   );

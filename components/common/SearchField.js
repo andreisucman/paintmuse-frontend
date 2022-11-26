@@ -61,7 +61,7 @@ export default function SearchField({
           medium,
           query,
         },
-        { headers: { "Content-Type": "application/json" }}
+        { headers: { "Content-Type": "application/json" } }
       );
     } catch (err) {
       setIsLoading(false);
