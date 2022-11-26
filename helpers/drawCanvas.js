@@ -35,6 +35,9 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
 
     if (isDraw) {
       document.addEventListener("mousemove", draw);
+      document.addEventListener("touchmove", draw);
+      document.addEventListener("touchstart", setPosition);
+      document.addEventListener("touchend", setPosition);
       document.addEventListener("mousedown", setPosition);
       document.addEventListener("mouseenter", setPosition);
     }
