@@ -51,26 +51,6 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
       drawend(event.changedTouches[0]);
     }
 
-    function draw(e) {
-      if (e.buttons !== 1) return;
-      setPosition(e);
-
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.beginPath();
-
-      ctx.lineWidth = brushSize;
-      ctx.lineCap = "round";
-      ctx.strokeStyle = "#fff";
-
-      ctx.moveTo(pos.x, pos.y);
-      setPosition(e);
-      ctx.lineTo(pos.x, pos.y);
-
-      ctx.stroke();
-
-      ctx.restore();
-    }
-
     if (isDraw) {
       if (mobile) {
         canvas.addEventListener("touchstart", touchstart, false);
