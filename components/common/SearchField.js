@@ -1,6 +1,6 @@
 import axios from "axios";
 import Counter from "./Counter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import FilterField from "./FilterField";
 import { useGetMethods, useGetCurrentState } from "./ContextProvider";
@@ -22,8 +22,15 @@ export default function SearchField({
     useGetMethods();
   const { imageCount, query, prompt, searchFieldOptions, isError } =
     useGetCurrentState();
+  const [showFields, setShowFields] = useState(false);
   const currentUser = useGetCurrentUser();
   const router = useRouter();
+
+  useEffect(() =>{
+    setTimeout(() => {
+      setShowFields(true);
+    }, 750)
+  }, [])
 
   useEffect(() => {
     handleSetPrompt(
@@ -90,7 +97,7 @@ export default function SearchField({
         className={styles.search__bar}
       />
       <div className={styles.search__buttons}>
-        {filterField && searchFieldOptions && (
+        {showFields && (
           <>
             <FilterField
               options={searchFieldOptions.styles}
