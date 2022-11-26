@@ -401,7 +401,7 @@ export default function EditExistingArt() {
               ></div>
               <div className={styles.view_modal__image_div}>
                 <Image
-                  src={selectedImage}
+                  src={selectedImage.url}
                   width={600}
                   height={600}
                   className={styles.view_modal__image}
