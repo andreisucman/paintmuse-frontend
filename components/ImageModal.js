@@ -28,7 +28,7 @@ export default function ImageModal({
           <button
             className={styles.container__close}
             onClick={() => setShowImageModal(false)}
-          />
+          ></button>
           <div className={styles.container__image_div}>
             {isLoading ? (
               <div className="loading_div">

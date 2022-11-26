@@ -14,7 +14,7 @@ export default function ImageModalSearch({
   page,
   setPage,
   handleLoadMore,
-  setGalleryImages
+  setGalleryImages,
 }) {
   function handleCloseModal() {
     if (setIsModalOpen) {
@@ -25,9 +25,12 @@ export default function ImageModalSearch({
 
   return (
     <div className={styles.container}>
-      <button className={styles.container__close} onClick={handleCloseModal} />
       <div className={styles.container__wrapper}>
         <div className={styles.container__content}>
+          <button
+            className={styles.container__close}
+            onClick={handleCloseModal}
+          />
           <SearchFieldDB
             text={"Search"}
             filterField={true}
@@ -37,35 +40,42 @@ export default function ImageModalSearch({
             setSelectedImage={setSelectedImage}
             page={page}
           />
-          {galleryImages.length !== 0 && <div className={styles.container__image_div}>
-            <Image
-              src={selectedImage && selectedImage.url}
-              className={styles.container__image}
-              width={700}
-              height={700}
-              alt={selectedImage && selectedImage.query || ""}
-            />
-            <div className={styles.container__gallery}>
-              <div className={styles.container__gallery_wrapper}>
-                <ImageList
-                  images={galleryImages}
-                  description={false}
-                  setShowImageModal={setShowImageModal}
-                  setSelectedImage={setSelectedImage}
-                  disableDescription={true}
-                  isModalOpen={isModalOpen}
-                  setIsModalOpen={setIsModalOpen}
-                  handleLoadMore={handleLoadMore}
-                  isGenerate={false}
-                  isModal={true}
-                />
+          {galleryImages.length !== 0 && (
+            <div className={styles.container__image_div}>
+              <Image
+                src={selectedImage && selectedImage.url}
+                className={styles.container__image}
+                width={700}
+                height={700}
+                alt={(selectedImage && selectedImage.query) || ""}
+              />
+              <div className={styles.container__gallery}>
+                <div className={styles.container__gallery_wrapper}>
+                  <ImageList
+                    images={galleryImages}
+                    description={false}
+                    setShowImageModal={setShowImageModal}
+                    setSelectedImage={setSelectedImage}
+                    disableDescription={true}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    handleLoadMore={handleLoadMore}
+                    isGenerate={false}
+                    isModal={true}
+                  />
+                </div>
               </div>
             </div>
-          </div>}
-          {galleryImages.length === 0 && <div className={styles.container__nothing_found}>Nothing found</div>}
+          )}
+          {galleryImages.length === 0 && (
+            <div className={styles.container__nothing_found}>Nothing found</div>
+          )}
           {selectedImage && selectedImage.query && (
             <p className={styles.container__image_desc}>
-              {selectedImage.query && `${selectedImage.query.charAt(0).toUpperCase()}${selectedImage.query.slice(1)}`}
+              {selectedImage.query &&
+                `${selectedImage.query
+                  .charAt(0)
+                  .toUpperCase()}${selectedImage.query.slice(1)}`}
               {selectedImage.style && `| ${selectedImage.style}`}
               {selectedImage.medium && `| ${selectedImage.medium}`}
             </p>

@@ -90,9 +90,6 @@
 
     @include tablet {
       position: absolute;
-    }
-
-    @include mobile {
       right: 16px;
       top: 16px;
     }
