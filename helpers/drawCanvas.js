@@ -2,6 +2,14 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
   const picture = new Image();
   picture.src = image;
 
+  const pos = { x: 0, y: 0 };
+
+  function setPosition(e) {
+    const rect = canvas.getBoundingClientRect();
+    pos.x = e.pageX - rect.left;
+    pos.y = e.pageY - rect.top;
+  }
+
   const mobile = window.innerWidth < 1024;
 
   if (mobile) {
@@ -14,27 +22,29 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
     const ctx = canvas.getContext("2d");
 
     function drawstart(event) {
-      const rect = canvas.getBoundingClientRect();
+      setPosition(event);
       ctx.globalCompositeOperation = "destination-out";
 
       ctx.beginPath();
-      ctx.moveTo(event.pageX - rect.left, event.pageY - rect.top);
+      ctx.moveTo(pos.x, pos.y);
       isIdle = false;
     }
     function drawmove(event) {
-      const rect = canvas.getBoundingClientRect();
+      setPosition(event);
 
       if (isIdle) return;
 
       ctx.lineWidth = brushSize;
       ctx.lineCap = "round";
       ctx.strokeStyle = "#fff";
-      ctx.lineTo(event.pageX - rect.left, event.pageY - rect.top);
+      ctx.lineTo(pos.x, pos.y);
       ctx.stroke();
       ctx.restore();
     }
 
     function drawend(event) {
+      setPosition(event);
+      
       if (isIdle) return;
       drawmove(event);
       isIdle = true;
