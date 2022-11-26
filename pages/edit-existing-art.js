@@ -50,7 +50,11 @@ export default function EditExistingArt() {
   const { imageCount, isError } = useGetCurrentState();
   const { setIsError } = useGetMethods();
   const currentUser = useGetCurrentUser();
-  const [resultsGallery, setResultsGallery] = useState([placeholder,placeholder,placeholder]);
+  const [resultsGallery, setResultsGallery] = useState([
+    placeholder,
+    placeholder,
+    placeholder,
+  ]);
   const [subscribed, setSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(placeholder);
@@ -296,14 +300,6 @@ export default function EditExistingArt() {
                     onLoad={() => setStep((prevValue) => prevValue + 1)}
                   />
                 )}
-                {step === 3 && originalImage && (
-                  <img
-                    ref={imgRef}
-                    alt="Crop me"
-                    src={originalImage}
-                    onLoad={() => setStep((prevValue) => prevValue + 1)}
-                  />
-                )}
                 {step === 2 && imgSrc && (
                   <ReactCrop
                     crop={crop}
@@ -378,13 +374,7 @@ export default function EditExistingArt() {
                     ))}
                   </div>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "16px",
-                  }}
-                >
+                <div className={styles.lower_buttons}>
                   <button
                     className={styles.button}
                     onClick={() => location.reload()}
@@ -411,7 +401,7 @@ export default function EditExistingArt() {
               ></div>
               <div className={styles.view_modal__image_div}>
                 <Image
-                  src={selectedImage.url}
+                  src={selectedImage}
                   width={600}
                   height={600}
                   className={styles.view_modal__image}
