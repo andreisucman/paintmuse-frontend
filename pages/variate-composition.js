@@ -6,13 +6,11 @@ import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import { drawCanvas } from "../helpers/drawCanvas";
 import { downloadImage } from "../helpers/downloadImage";
 import { resizeImage } from "../helpers/resizeImage";
-import { handleQueryEntry } from "../helpers/handleQueryEntry";
 import {
   useGetCurrentState,
   useGetMethods,
 } from "../components/common/ContextProvider";
 import { useGetCurrentUser } from "../helpers/useCurrentUser";
-import { saveImage, saveOriginalImage } from "../helpers/saveImage";
 import { fetchGalleryImages } from "../helpers/fetchGalleryImages";
 import Counter from "../components/common/Counter";
 import ReactLoading from "react-loading";
@@ -316,6 +314,7 @@ export default function EditExistingArt() {
                       <div
                         className={styles.results__image_div}
                         onClick={() => setShowModal(true)}
+                        key={element.imageId}
                       >
                         <Image
                           src={element.url}

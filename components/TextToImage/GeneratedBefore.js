@@ -7,6 +7,7 @@ import FloatingSearchBar from "../common/FloatingSearchBar";
 import ImageModalSearch from "../ImageModalSearch";
 import { fetchGalleryImages } from "../../helpers/fetchGalleryImages";
 import { handleSearchImages } from "../../helpers/handleSearchImages";
+import LoadMoreButton from "../common/LoadMoreButton";
 import styles from "../../styles/components/TextToImage/GeneratedBefore.module.scss";
 
 export default function GeneratedBefore({
@@ -35,9 +36,10 @@ export default function GeneratedBefore({
         setGalleryImages,
         style: styleSearch,
         medium: mediumSearch,
+        fields: ["query", "medium", "style", "url", "imageId"],
         isSearching,
         setIsSearching,
-        setSelectedImage
+        setSelectedImage,
       });
     } else {
       fetchGalleryImages({
@@ -48,7 +50,7 @@ export default function GeneratedBefore({
         fields: ["query", "medium", "style", "url", "imageId"],
         style: styleSearch,
         medium: mediumSearch,
-        functionName: "fetchTextToImage"
+        functionName: "fetchTextToImage",
       });
     }
     setPage((prevValue) => prevValue + 1);
@@ -74,6 +76,7 @@ export default function GeneratedBefore({
           setSelectedImage={setSelectedImage}
           extraPadding={true}
           page={page}
+          customerId={null}
         />
         <div
           className={styles.generated_before__image_container}
@@ -87,7 +90,11 @@ export default function GeneratedBefore({
             isModalOpen={isModalOpen}
             handleLoadMore={handleLoadMore}
             isGenerate={false}
+            hideLoadMore={true}
           />
+          {galleryImages && (
+            <LoadMoreButton onClickHandler={handleLoadMore} />
+          )}
         </div>
 
         <FloatingSearchBar

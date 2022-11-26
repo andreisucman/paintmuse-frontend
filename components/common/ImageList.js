@@ -12,7 +12,9 @@ export default function ImageList({
   isGenerate,
   handleLoadMore,
   isModal,
+  hideLoadMore
 }) {
+  
   function handleSelect(image) {
     if (isGenerate) {
       setSelectedImage(image);
@@ -39,9 +41,9 @@ export default function ImageList({
         {images &&
           images.map((element) => (
             <div
-              key={element.imageId}
               className={styles.list__image_div}
               onClick={() => handleSelect(element)}
+              key={element.imageId}
             >
               <Image
                 src={element.url}
@@ -78,7 +80,7 @@ export default function ImageList({
               )}
             </div>
           ))}
-        {!isGenerate && images && (
+        {!isGenerate && images && !hideLoadMore && (
           <LoadMoreButton onClickHandler={handleLoadMore} />
         )}
       </div>

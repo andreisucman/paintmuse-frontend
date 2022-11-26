@@ -109,6 +109,11 @@
 
   &__product_buttons_list_link {
     display: block;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0;
   }
   
 .active_list_item {

@@ -16,6 +16,7 @@ export default function SearchFieldDB({
   setGalleryImages,
   setSelectedImage,
   extraPadding,
+  customerId
 }) {
   const {
     setQuerySearch,
@@ -54,8 +55,6 @@ export default function SearchFieldDB({
     setQuerySearch,
     setStyleSearch,
   ]);
-
-  const currentUser = useGetCurrentUser();
 
   return (
     <div
@@ -107,7 +106,8 @@ export default function SearchFieldDB({
               isSearching,
               setIsSearching,
               setSelectedImage,
-              customerId: currentUser.customerId,
+              customerId,
+              fields: ["query", "medium", "style", "url", "imageId"]
             })
           }
         >

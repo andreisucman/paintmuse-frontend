@@ -22,14 +22,14 @@ export default function EditField({
       const response = handleUpdateField("email", newEmail);
       if (response) {
         setEmailNext(
-          "We've sent a password confirmation link to your new email. Click on it to finish the update."
+          "Success! You've changed your email."
         );
       }
     }
 
     setTimeout(() => {
       setShowEditField(false);
-    }, 3000);
+    }, 5000);
   }
 
   return (

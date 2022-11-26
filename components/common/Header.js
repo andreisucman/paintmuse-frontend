@@ -70,6 +70,15 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function handleRedirect(endpoint) {
+    if (currentUser) {
+      router.push(endpoint);
+      handleActiveLink(endpoint);
+    } else {
+      router.push("/login");
+    }
+  }
+
   return (
     <header className={styles.container} id="header">
       <div className={styles.container__wrapper}>
@@ -98,13 +107,12 @@ export default function Header() {
                       : `${styles.container__product_buttons_list_item}`
                   }
                 >
-                  <Link
-                    href="/"
+                  <button
                     className={styles.container__product_buttons_list_link}
-                    onClick={() => handleActiveLink("/")}
+                    onClick={() => handleRedirect("/")}
                   >
                     Generate muses from words
-                  </Link>
+                  </button>
                 </li>
                 <li
                   className={
@@ -113,13 +121,12 @@ export default function Header() {
                       : `${styles.container__product_buttons_list_item}`
                   }
                 >
-                  <Link
-                    href={currentUser ? "/edit-existing-art" : "/login"}
-                    onClick={() => handleActiveLink("/edit-existing-art")}
+                  <button
+                    onClick={() => handleRedirect("/edit-existing-art")}
                     className={styles.container__product_buttons_list_link}
                   >
                     Edit existing art
-                  </Link>
+                  </button>
                 </li>
                 <li
                   className={
@@ -128,13 +135,12 @@ export default function Header() {
                       : `${styles.container__product_buttons_list_item}`
                   }
                 >
-                  <Link
-                    href={currentUser ? "/variate-composition" : "/login"}
-                    onClick={() => handleActiveLink("/variate-composition")}
+                  <button
+                    onClick={() => handleRedirect("/variate-composition")}
                     className={styles.container__product_buttons_list_link}
                   >
                     Variate composition
-                  </Link>
+                  </button>
                 </li>
                 <li
                   className={
@@ -143,13 +149,12 @@ export default function Header() {
                       : `${styles.container__product_buttons_list_item}`
                   }
                 >
-                  <Link
-                    href="/pricing"
-                    onClick={() => handleActiveLink("/pricing")}
+                  <button
+                    onClick={() => handleRedirect("/pricing")}
                     className={styles.container__product_buttons_list_link}
                   >
                     Pricing
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>

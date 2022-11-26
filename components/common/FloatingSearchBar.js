@@ -45,6 +45,7 @@ export default function FloatingSearchBar({ galleryImages, setGalleryImages, set
           setSelectedImage={setSelectedImage}
           page={page}
           setPage={setPage}
+          customerId={null}
         />
         <div
           className={styles.container__close}

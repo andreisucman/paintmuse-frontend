@@ -12,28 +12,11 @@ import {
   useGetMethods,
 } from "../components/common/ContextProvider";
 import { useGetCurrentUser } from "../helpers/useCurrentUser";
-import { saveImage, saveOriginalImage } from "../helpers/saveImage";
 import { fetchGalleryImages } from "../helpers/fetchGalleryImages";
 import Counter from "../components/common/Counter";
 import ReactLoading from "react-loading";
 import placeholder from "../public/assets/placeholder.svg";
 import styles from "../styles/EditExistingArt.module.scss";
-
-function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
-  return centerCrop(
-    makeAspectCrop(
-      {
-        unit: "%",
-        width: 100,
-      },
-      aspect,
-      mediaWidth,
-      mediaHeight
-    ),
-    mediaWidth,
-    mediaHeight
-  );
-}
 
 export default function EditExistingArt() {
   const canvasRef = useRef(null);
@@ -74,6 +57,22 @@ export default function EditExistingArt() {
     4: "Describe what the final image should look like (as a whole image). Then select the number of variations and click 'Generate'.",
   };
 
+  function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
+    return centerCrop(
+      makeAspectCrop(
+        {
+          unit: "%",
+          width: 100,
+        },
+        aspect,
+        mediaWidth,
+        mediaHeight
+      ),
+      mediaWidth,
+      mediaHeight
+    );
+  }
+
   function onSelectFile(e) {
     if (e.target.files && e.target.files.length > 0) {
       setCrop(undefined);
@@ -96,40 +95,6 @@ export default function EditExistingArt() {
       setCrop(centerAspectCrop(width, height, aspect));
     }
   }
-
-  // function saveCanvas(canvas, setter) {
-  //   const image = new Image();
-  //   image.src = canvas.toDataURL("image/png;base64");
-  //   // var link = document.createElement("a"),
-  //   //   e;
-  //   // link.download = "muse";
-  //   setter(image);
-
-  //   // if (document.createEvent) {
-  //   //   e = document.createEvent("MouseEvents");
-  //   //   e.initMouseEvent(
-  //   //     "click",
-  //   //     true,
-  //   //     true,
-  //   //     window,
-  //   //     0,
-  //   //     0,
-  //   //     0,
-  //   //     0,
-  //   //     0,
-  //   //     false,
-  //   //     false,
-  //   //     false,
-  //   //     false,
-  //   //     0,
-  //   //     null
-  //   //   );
-
-  //   //   link.dispatchEvent(e);
-  //   // } else if (link.fireEvent) {
-  //   //   link.fireEvent("onclick");
-  //   // }
-  // }
 
   function handleGenerate() {
     try {
@@ -301,11 +266,7 @@ export default function EditExistingArt() {
                   />
                 )}
                 {step === 4 && imgSrc && (
-                  <img
-                    ref={imgRef}
-                    alt="Crop me"
-                    src={maskImage}
-                  />
+                  <img ref={imgRef} alt="Crop me" src={maskImage} />
                 )}
                 {step === 2 && imgSrc && (
                   <ReactCrop
@@ -368,6 +329,7 @@ export default function EditExistingArt() {
                       <div
                         className={styles.results__image_div}
                         onClick={() => setShowModal(true)}
+                        key={element.imageId}
                       >
                         <Image
                           src={element.url}

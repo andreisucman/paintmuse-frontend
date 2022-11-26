@@ -9,16 +9,19 @@ export async function handleSearchImages({
   setSelectedImage,
   style,
   medium,
+  fields,
   isSearching,
   setIsSearching,
-  customerId
+  customerId,
 }) {
   if (!isSearching) {
     setIsSearching(true);
   }
 
   if (
-    (!query || query === "" || query === "Describe the image you're looking for") &&
+    (!query ||
+      query === "" ||
+      query === "Describe the image you're looking for") &&
     style === "Select style" &&
     medium === "Select medium"
   ) {
@@ -32,7 +35,7 @@ export async function handleSearchImages({
       style,
       medium,
       functionName: "fetchTextToImage",
-      customerId
+      customerId,
     });
     return;
   }
@@ -44,19 +47,20 @@ export async function handleSearchImages({
     style,
     medium,
     customerId,
+    fields,
   };
 
   try {
     const response = await Parse.Cloud.run("findImages", params);
 
     if (page > 1) {
-      setSelectedImage([galleryImages[galleryImages.length - 1]])
+      setSelectedImage([galleryImages[galleryImages.length - 1]]);
       setGalleryImages([...galleryImages, ...response]);
     } else {
       setGalleryImages(response);
-      setSelectedImage(response[0])
+      setSelectedImage(response[0]);
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }

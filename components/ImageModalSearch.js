@@ -15,6 +15,7 @@ export default function ImageModalSearch({
   setPage,
   handleLoadMore,
   setGalleryImages,
+  customerId
 }) {
   function handleCloseModal() {
     if (setIsModalOpen) {
@@ -38,6 +39,7 @@ export default function ImageModalSearch({
             galleryImages={galleryImages}
             setGalleryImages={setGalleryImages}
             setSelectedImage={setSelectedImage}
+            customerId={customerId}
             page={page}
           />
           {galleryImages.length !== 0 && (
