@@ -3,7 +3,7 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
   picture.src = image;
 
   const isMobile = window.innerWidth < 1024;
-  
+
   if (isMobile) {
     brushSize *= 0.5;
   }
@@ -19,11 +19,11 @@ export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
 
   picture.onload = () => {
     const ctx = canvas.getContext("2d");
-    ctx.globalCompositeOperation = "destination-out";
 
     function drawstart(e) {
       setPosition(e)
-
+      ctx.globalCompositeOperation = "destination-out";
+      
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
       isIdle = false;
