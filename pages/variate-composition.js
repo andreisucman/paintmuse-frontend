@@ -31,6 +31,7 @@ export default function VariateComposition() {
   const { imageCount, isLoading, isError } = useGetCurrentState();
   const { setIsLoading, setIsError } = useGetMethods();
   const currentUser = useGetCurrentUser();
+  const [subscribed, setSubscribed] = useState(false);
 
   async function requestVariation() {
     if (!currentUser) return;
@@ -86,8 +87,10 @@ export default function VariateComposition() {
   }
 
   useEffect(() => {
+    if (subscribed) return;
     if (!setIsLoading || !currentUser) return;
     subscribeToTable();
+    setSubscribed(false);
   }, [setIsLoading, currentUser]);
 
   return (

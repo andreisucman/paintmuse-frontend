@@ -39,6 +39,7 @@ export default function EditExistingArt() {
   const currentUser = useGetCurrentUser();
   const canvasRef = useRef();
   const cropImageRef = useRef();
+  const [subscribed, setSubscribed] = useState(false);
 
   useEffect(() => {
     if (!cropCompleted) return;
@@ -119,14 +120,11 @@ export default function EditExistingArt() {
     }
   }
 
-  function handleSaveCrop() {
-
-    setShowCanvas(true);
-  }
-
   useEffect(() => {
+    if (subscribed) return;
     if (!setIsLoading || !currentUser) return;
     subscribeToTable();
+    setSubscribed(false);
   }, [setIsLoading, currentUser]);
 
   return (

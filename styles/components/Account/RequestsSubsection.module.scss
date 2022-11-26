@@ -18,7 +18,7 @@
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(4, minmax(300px, auto));
+    grid-template-columns: repeat(4, minmax(200px, auto));
     place-items: center;
     grid-auto-flow: row;
 

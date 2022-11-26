@@ -26,6 +26,7 @@ export default function GenerateNew({
   const [selectedImage, setSelectedImage] = useState(
     newlyGeneratedImages ? newlyGeneratedImages[0] : "/"
   );
+  const [subscribed, setSubscribed] = useState(false);
 
   async function subscribeToTable() {
     const query = new Parse.Query("TextToImage");
@@ -48,8 +49,10 @@ export default function GenerateNew({
   }
 
   useEffect(() => {
+    if (subscribed) return;
     if (!setIsLoading || !currentUser) return;
     subscribeToTable();
+    setSubscribed(true);
   }, [setIsLoading, currentUser]);
 
   useEffect(() => {

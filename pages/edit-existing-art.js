@@ -1,59 +1,145 @@
-import Parse from "parse";
 import axios from "axios";
-import Link from "next/link";
-// import Image from "next/image";
+import Parse from "parse";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import Buttons from "../components/common/Buttons";
-import placeholder from "../public/assets/placeholder_arrows.svg";
-import Counter from "../components/common/Counter";
-import styles from "../styles/EditExistingArt.module.scss";
+import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
+import { drawCanvas } from "../helpers/drawCanvas";
+import { downloadImage } from "../helpers/downloadImage";
+import { resizeImage } from "../helpers/resizeImage";
+import { handleQueryEntry } from "../helpers/handleQueryEntry";
 import {
   useGetCurrentState,
   useGetMethods,
 } from "../components/common/ContextProvider";
 import { useGetCurrentUser } from "../helpers/useCurrentUser";
-import { handleQueryEntry } from "../helpers/handleQueryEntry";
-import { uploadToClient } from "../helpers/uploadToClient";
+import { saveImage, saveOriginalImage } from "../helpers/saveImage";
 import { fetchGalleryImages } from "../helpers/fetchGalleryImages";
+import Counter from "../components/common/Counter";
 import ReactLoading from "react-loading";
-import ErrorPopUp from "../components/common/ErrorPopUp";
+import placeholder from "../public/assets/placeholder.svg";
+import styles from "../styles/EditExistingArt.module.scss";
+
+function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: "%",
+        width: 100,
+      },
+      aspect,
+      mediaWidth,
+      mediaHeight
+    ),
+    mediaWidth,
+    mediaHeight
+  );
+}
 
 export default function EditExistingArt() {
-  const { setActiveLink } = useGetMethods();
-  const [originalImage, setOriginalImage] = useState(null);
-  const [originalUrl, setOriginalUrl] = useState(null);
-  const [maskImage, setMaskImage] = useState(null);
-  const [query, setQuery] = useState(null);
-  const [editedImages, setEditedImages] = useState([
-    placeholder,
-    placeholder,
-    placeholder,
-  ]);
-  const [readyToDownload, setReadyToDownload] = useState(false);
-  const { imageCount, isLoading, isError } = useGetCurrentState();
-  const { setIsLoading, setIsError } = useGetMethods();
-  const [editingStarted, setEditingStarted] = useState(false);
-  const [cropCompleted, setCropCompleted] = useState(false);
+  const canvasRef = useRef(null);
+  const imgRef = useRef(null);
+  const [imgSrc, setImgSrc] = useState("");
+  const [crop, setCrop] = useState();
+  const [completedCrop, setCompletedCrop] = useState();
+  const [originalImage, setOriginalImage] = useState();
+  const [maskImage, setMaskImage] = useState();
+  const [aspect, setAspect] = useState(1 / 1);
+  const [step, setStep] = useState(1);
+  const [finishedUrl, setFinishedUrl] = useState();
+  const [brushSize, setBrushSize] = useState(25);
+  const [query, setQuery] = useState("");
+  const { imageCount, isError } = useGetCurrentState();
+  const { setIsError } = useGetMethods();
   const currentUser = useGetCurrentUser();
-  const canvasRef = useRef();
+  const [resultsGallery, setResultsGallery] = useState([]);
+  const [subscribed, setSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (!originalImage) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+  const stepTitles = {
+    1: "Upload your image",
+    2: "Crop your image",
+    3: "Mark areas to be modified",
+    4: "Describe the final result",
+  };
 
-    const canvasWidth = 600;
-    const canvasHeight = canvasWidth;
-    
-    const image = new Image();
-    image.src = originalUrl;
-    
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0, image.width, image.height);
+  const stepDescriptions = {
+    1: "Upload the image that you want to be edited",
+    2: "Use your mouse to crop your image to a square and click 'Next'",
+    3: "Paint the areas that need to be changed and click 'Next'",
+    4: "Describe what the final image should look like (as a whole image). Then select the number of variations and click 'Generate'.",
+  };
 
-    };
+  console.log(resultsGallery)
 
-  }, [originalImage]);
+  function onSelectFile(e) {
+    if (e.target.files && e.target.files.length > 0) {
+      setCrop(undefined);
+
+      if (window.innerWidth < 733) {
+        resizeImage(e.target.files[0], setImgSrc);
+      } else {
+        const reader = new FileReader();
+        reader.addEventListener("load", () =>
+          setImgSrc(reader.result?.toString() || "")
+        );
+        reader.readAsDataURL(e.target.files[0]);
+      }
+    }
+  }
+
+  function onImageLoad(e) {
+    if (aspect) {
+      const { width, height } = e.currentTarget;
+      setCrop(centerAspectCrop(width, height, aspect));
+    }
+  }
+
+  // function saveCanvas(canvas, setter) {
+  //   const image = new Image();
+  //   image.src = canvas.toDataURL("image/png;base64");
+  //   // var link = document.createElement("a"),
+  //   //   e;
+  //   // link.download = "muse";
+  //   setter(image);
+
+  //   // if (document.createEvent) {
+  //   //   e = document.createEvent("MouseEvents");
+  //   //   e.initMouseEvent(
+  //   //     "click",
+  //   //     true,
+  //   //     true,
+  //   //     window,
+  //   //     0,
+  //   //     0,
+  //   //     0,
+  //   //     0,
+  //   //     0,
+  //   //     false,
+  //   //     false,
+  //   //     false,
+  //   //     false,
+  //   //     0,
+  //   //     null
+  //   //   );
+
+  //   //   link.dispatchEvent(e);
+  //   // } else if (link.fireEvent) {
+  //   //   link.fireEvent("onclick");
+  //   // }
+  // }
+
+  function handleGenerate() {
+    try {
+      requestEdits();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function handleSaveMask() {
+    setMaskImage(canvasRef.current.toDataURL("image/png;base64"));
+    setStep((prevValue) => prevValue + 1);
+  }
 
   async function requestEdits() {
     if (!currentUser) return;
@@ -61,10 +147,11 @@ export default function EditExistingArt() {
 
     try {
       setIsLoading(true);
-
-      const parseOriginal = new Parse.File("original", originalImage);
+      const parseOriginal = new Parse.File("original", {
+        base64: originalImage,
+      });
       await parseOriginal.save();
-      const parseMask = new Parse.File("maks", maskImage);
+      const parseMask = new Parse.File("mask", { base64: maskImage });
       await parseMask.save();
 
       const params = {
@@ -82,12 +169,15 @@ export default function EditExistingArt() {
           headers: { "Content-Type": "application/json" },
         }
       );
+
+      setStep((prevValue) => prevValue + 1);
     } catch (err) {
+      console.log(err);
       setIsLoading(false);
       setIsError(
         Object.assign({}, isError, {
           value: true,
-          message: `Make sure 1) Both original and mask images are pixel-perfect square. 2) Both images have at most 1024x1024 resolution.`,
+          message: `An error occured. Make sure you upload a PNG/JPG image and try again.`,
         })
       );
     }
@@ -103,7 +193,7 @@ export default function EditExistingArt() {
       subscription.on("create", () => {
         fetchGalleryImages({
           galleryImages: [],
-          setGalleryImages: setEditedImages,
+          setGalleryImages: setResultsGallery,
           customerId: currentUser.customerId,
           fields: ["query", "medium", "style", "url", "imageId"],
           fetchOnce: true,
@@ -117,141 +207,185 @@ export default function EditExistingArt() {
   }
 
   useEffect(() => {
+    if (subscribed) return;
     if (!setIsLoading || !currentUser) return;
     subscribeToTable();
+    setSubscribed(true);
   }, [setIsLoading, currentUser]);
+
+  useEffect(() => {
+    if (step !== 3) return;
+    drawCanvas(imgSrc, canvasRef.current, completedCrop, brushSize);
+
+    setTimeout(() => {
+      setOriginalImage(canvasRef.current.toDataURL("image/png;base64"));
+    }, 500);
+  }, [step]);
 
   return (
     <div className={styles.container}>
       <div className={styles.container__wrapper}>
-        <div className={styles.container__content}>
-          <Link
-            className={styles.container__close}
-            href="/"
-            onClick={() => setActiveLink("/")}
-          />
-          <div className={styles.container__image_div}>
-            <div className={styles.container__gallery}>
-              <div className={styles.container__gallery_wrapper}>
-                {isLoading && (
-                  <div className="loading_div">
-                    <ReactLoading
-                      width={100}
-                      height={100}
-                      type={"bars"}
-                      color="#dddddd"
+        {!isLoading && <h2 className={styles.container__title}>Edit existing art</h2>}
+        <div className={styles.steps}>
+          <div className={styles.steps__wrapper}>
+            {!isLoading && step < 5 && (
+              <>
+                <h3 className={styles.steps__title}>
+                  Step {step} - {stepTitles[step]}
+                </h3>
+                <p>{stepDescriptions[step]}</p>
+                {step === 4 && (
+                  <div className={styles.generate__div}>
+                    <input
+                      type="text"
+                      className={styles.generate__text}
+                      onChange={(e) =>
+                        handleQueryEntry(e.target.value, setQuery)
+                      }
+                      placeholder="Example: A mob standing around the fire in hell and the devil wearing a pink jacket measuring the temperature of fire"
                     />
+                    <Counter />
+                    <button
+                      className={styles.generate}
+                      onClick={handleGenerate}
+                    >
+                      Generate
+                    </button>
                   </div>
                 )}
-                {!isLoading && editingStarted && (
-                  <div>
-                    <canvas ref={canvasRef} className={styles.canvas}></canvas>
-                  </div>
-                )}
-                {!isLoading && !editingStarted && (
-                  <>
-                    {isError && isError.value && <ErrorPopUp />}
-                    <div className={styles.container__gallery_items}>
-                      {editedImages.map((element) => (
-                        <div
-                          key={element.imageId || Math.random()}
-                          className={styles.container__gallery_image_div}
-                        >
-                          <img
-                            src={element.url || placeholder}
-                            width={600}
-                            height={600}
-                            className={styles.container__image}
-                            alt=""
-                          />
-                        </div>
-                      ))}
+                <div className={styles.buttons}>
+                  {step === 1 && (
+                    <div className={styles.upload}>
+                      <label
+                        htmlFor="upload_original_image"
+                        className={styles.upload__label}
+                      >
+                        {" "}
+                        Upload image
+                        <input
+                          className={styles.upload__input}
+                          type="file"
+                          name="edit_image_step_one"
+                          accept="image/*"
+                          id="upload_original_image"
+                          onChange={onSelectFile}
+                        />
+                      </label>
                     </div>
-                  </>
+                  )}
+                  {step === 2 && (
+                    <button
+                      className={styles.button}
+                      onClick={() => setStep((prevValue) => prevValue + 1)}
+                    >
+                      Next
+                    </button>
+                  )}
+                  {step === 3 && (
+                    <button className={styles.button} onClick={handleSaveMask}>
+                      Next
+                    </button>
+                  )}
+                </div>
+                {step === 1 && imgSrc && (
+                  <img
+                    ref={imgRef}
+                    alt="Crop me"
+                    src={imgSrc}
+                    onLoad={() => setStep((prevValue) => prevValue + 1)}
+                  />
                 )}
-              </div>
-            </div>
-            <div className={styles.container__controls}>
-              <h2 className={styles.container__title}>Edit existing art</h2>
-              <div className={styles.container__step}>
-                <h3 className={styles.container__step_title}>Step 1</h3>
-                <div className={styles.container__step_description}>
-                  Upload the picture that you want to edit. It must be a square
-                  PNG up to 4MB in size and 1024x1024 resolution at most.
-                </div>
-                <div className={styles.container__choose_image_div}>
-                  <label
-                    htmlFor="upload_original_image"
-                    className={styles.container__choose_image_label}
+                {finishedUrl && (
+                  <img
+                    ref={imgRef}
+                    alt="Crop me"
+                    src={finishedUrl}
+                    style={{
+                      width: completedCrop.width,
+                      height: completedCrop.height,
+                      margin: "auto",
+                    }}
+                  />
+                )}
+                {step === 2 && imgSrc && (
+                  <ReactCrop
+                    crop={crop}
+                    onChange={(crop, percentCrop) => setCrop(crop)}
+                    onComplete={(c) => setCompletedCrop(c)}
+                    aspect={aspect}
+                    className={
+                      step === 2
+                        ? styles.crop
+                        : `${styles.crop} ${styles.crop_hide}`
+                    }
                   >
-                    {" "}
-                    Upload image
-                    <input
-                      className={styles.container__choose_image_input}
-                      type="file"
-                      name="edit_image_step_one"
-                      accept="image/*"
-                      id="upload_original_image"
-                      onChange={(e) =>
-                        uploadToClient(e, setOriginalImage, setOriginalUrl)
-                      }
+                    <img
+                      ref={imgRef}
+                      alt="Crop me"
+                      src={imgSrc}
+                      onLoad={onImageLoad}
                     />
-                  </label>
-                  <p>{originalImage ? originalImage.name : ""}</p>
+                  </ReactCrop>
+                )}
+                {step >= 3 && !finishedUrl && !isLoading && (
+                  <div style={{ margin: "auto" }}>
+                    {!!completedCrop && (
+                      <canvas
+                        ref={canvasRef}
+                        style={{
+                          objectFit: "contain",
+                          width: completedCrop.width,
+                          height: completedCrop.height,
+                          cursor: "crosshair",
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+            {isLoading && (
+              <div className={styles.loading}>
+                <div className="loading_div">
+                  <h3 className={styles.loading__title}>Hold tight!</h3>
+                  <p className={styles.loading__description}>
+                    We're generating your results.
+                  </p>
+                  <ReactLoading
+                    width={100}
+                    height={100}
+                    type={"bars"}
+                    color="#dddddd"
+                  />
                 </div>
               </div>
-              <div className={styles.container__step}>
-                <h3 className={styles.container__step_title}>Step 2</h3>
-                <p className={styles.container__step_description}>
-                  Of the same picture erase the part that you want to be
-                  modified and upload the resulting image with the transparent
-                  part (mask).
-                </p>
-                <div className={styles.container__choose_image_div}>
-                  <label
-                    htmlFor="upload_mask_image"
-                    className={styles.container__choose_image_label}
-                  >
-                    {" "}
-                    Upload image
-                    <input
-                      className={styles.container__choose_image_input}
-                      type="file"
-                      name="edit_image_step_two"
-                      accept="image/*"
-                      id="upload_mask_image"
-                      onChange={(e) =>
-                        uploadToClient(e, setMaskImage, undefined)
-                      }
-                    />
-                  </label>
-                  <p>{maskImage ? maskImage.name : ""}</p>
+            )}
+            {!isLoading && step === 5 && (
+              <>
+                <div className={styles.results}>
+                  <div className={styles.results__gallery}>
+                    {resultsGallery.map((element) => 
+                      (<div className={styles.results__image_div}>
+                        <Image
+                          src={element.url}
+                          width={484}
+                          height={484}
+                          className={styles.results__image}
+                          alt=""
+                        />
+                      </div>)
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.container__step}>
-                <h3 className={styles.container__step_title}>Step 3</h3>
-                <p className={styles.container__step_description}>
-                  Describe the final composition that you want to get as a whole
-                  image (not just the erased part).
-                </p>
-                <textarea
-                  name="edit_image_description"
-                  className={styles.container__step_description_textarea}
-                  placeholder="A man sitting on a tree in the forest and holding a stick in his hand"
-                  onChange={(e) => handleQueryEntry(e.target.value, setQuery)}
-                ></textarea>
-              </div>
-              <div className={styles.container__buttons}>
-                <Counter />
                 <button
-                  className={styles.container__button}
-                  onClick={requestEdits}
+                  className={styles.button}
+                  style={{ margin: "auto" }}
+                  onClick={() => location.reload()}
                 >
-                  Generate
+                  Try again
                 </button>
-              </div>
-              <Buttons src={editedImages} isBulk={true} />
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>

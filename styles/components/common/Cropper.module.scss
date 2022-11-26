@@ -50,8 +50,6 @@
   height: 100%;
   max-width: 670px;
   max-height: 670px;
-  object-fit: cover;
-  object-position: top;
 
   @include tablet {
     max-width: unset;

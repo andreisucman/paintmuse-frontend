@@ -9,81 +9,65 @@ import ReactCrop, {
 import { canvasPreview } from "../../helpers/canvasPreview";
 import { useDebounceEffect } from "../../helpers/useDebounceEffect";
 
-function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
-  return centerCrop(
-    makeAspectCrop(
-      {
-        unit: "%",
-        width: 90,
-      },
-      aspect,
-      mediaWidth,
-      mediaHeight
-    ),
-    mediaWidth,
-    mediaHeight
-  );
-}
+export default function Crop2({ originalUrl }) {
+  const [crop, setCrop] = useState({ aspect: 1 / 1 });
+  const [image, setImage] = useState(null);
+  const [output, setOutput] = useState(null);
 
-export default function Crop2() {
-  const [imgSrc, setImgSrc] = useState("");
-  const previewCanvasRef = useRef(null);
-  const imgRef = useRef(null);
-  const [crop, setCrop] = useState();
-  const [completedCrop, setCompletedCrop] = useState();
-  const [scale, setScale] = useState(1);
-  const [rotate, setRotate] = useState(0);
-  const [aspect, setAspect] = useState(1 / 1);
+  const cropImageNow = () => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
 
-  function onSelectFile(e) {
-    if (e.target.files && e.target.files.length > 0) {
-      setCrop(undefined);
-      const reader = new FileReader();
-      reader.addEventListener("load", () =>
-        setImgSrc(reader.result.toString() || "")
-      );
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
+    const pixelRatio = window.devicePixelRatio;
+    canvas.width = crop.width * pixelRatio;
+    canvas.height = crop.height * pixelRatio;
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingQuality = "high";
 
-  function onImageLoad(e) {
-    if (aspect) {
-      const { width, height } = e.currentTarget;
-      setCrop(centerAspectCrop(width, height, aspect));
-    }
-  }
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
 
-  useDebounceEffect(
-    async () => {
-      if (
-        completedCrop && completedCrop.width &&
-        completedCrop && completedCrop.height &&
-        imgRef.current &&
-        previewCanvasRef.current
-      ) {
-        canvasPreview(
-          imgRef.current,
-          previewCanvasRef.current,
-          completedCrop,
-          scale,
-          rotate
-        );
-      }
-    },
-    100,
-    [completedCrop, scale, rotate]
-  );
-
+    // Converting to base64
+    const base64Image = canvas.toDataURL("image/jpeg");
+    setOutput(base64Image);
+  };
 
   return (
     <div className="App">
-      <div className="Crop-Controls">
-        <input type="file" accept="image/*" onChange={onSelectFile} />
-      </div>
-      
-      <div>
-
-      </div>
+      <center>
+        <br />
+        <br />
+        <div>
+          {originalUrl && (
+            <div>
+              <ReactCrop
+                src={originalUrl}
+                onImageLoaded={setImage}
+                crop={crop}
+                onChange={setCrop}
+              />
+              <br />
+              <button onClick={cropImageNow}>Crop</button>
+              <br />
+              <br />
+            </div>
+          )}
+        </div>
+        <div>{output && <img src={output} />}</div>
+      </center>
     </div>
   );
 }

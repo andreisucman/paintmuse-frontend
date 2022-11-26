@@ -158,6 +158,10 @@
       color: var(--blue);
       border: 1px solid var(--blue);
     }
+    
+    @include mobile {
+      padding: 4px 8px;
+    }
   }
 
   &__account_icon {
