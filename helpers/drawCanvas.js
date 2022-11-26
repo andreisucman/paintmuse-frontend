@@ -1,4 +1,4 @@
-export async function drawCanvas(image, canvas, crop, brushSize) {
+export async function drawCanvas(image, canvas, crop, brushSize, isDraw) {
   const picture = new Image();
   picture.src = image;
 
@@ -33,9 +33,11 @@ export async function drawCanvas(image, canvas, crop, brushSize) {
       ctx.restore();
     }
 
-    document.addEventListener("mousemove", draw);
-    document.addEventListener("mousedown", setPosition);
-    document.addEventListener("mouseenter", setPosition);
+    if (isDraw) {
+      document.addEventListener("mousemove", draw);
+      document.addEventListener("mousedown", setPosition);
+      document.addEventListener("mouseenter", setPosition);
+    }
 
     const scaleX = picture.naturalWidth / picture.width;
     const scaleY = picture.naturalHeight / picture.height;

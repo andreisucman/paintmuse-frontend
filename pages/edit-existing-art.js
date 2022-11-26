@@ -45,15 +45,16 @@ export default function EditExistingArt() {
   const [maskImage, setMaskImage] = useState();
   const [aspect, setAspect] = useState(1 / 1);
   const [step, setStep] = useState(1);
-  const [finishedUrl, setFinishedUrl] = useState();
   const [brushSize, setBrushSize] = useState(25);
   const [query, setQuery] = useState("");
   const { imageCount, isError } = useGetCurrentState();
   const { setIsError } = useGetMethods();
   const currentUser = useGetCurrentUser();
-  const [resultsGallery, setResultsGallery] = useState([]);
+  const [resultsGallery, setResultsGallery] = useState([placeholder,placeholder,placeholder]);
   const [subscribed, setSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(placeholder);
+  const [showModal, setShowModal] = useState(false);
 
   const stepTitles = {
     1: "Upload your image",
@@ -68,8 +69,6 @@ export default function EditExistingArt() {
     3: "Paint the areas that need to be changed and click 'Next'",
     4: "Describe what the final image should look like (as a whole image). Then select the number of variations and click 'Generate'.",
   };
-
-  console.log(resultsGallery)
 
   function onSelectFile(e) {
     if (e.target.files && e.target.files.length > 0) {
@@ -130,7 +129,7 @@ export default function EditExistingArt() {
 
   function handleGenerate() {
     try {
-      requestEdits();
+      requestEdit();
     } catch (err) {
       console.log(err);
     }
@@ -141,7 +140,7 @@ export default function EditExistingArt() {
     setStep((prevValue) => prevValue + 1);
   }
 
-  async function requestEdits() {
+  async function requestEdit() {
     if (!currentUser) return;
     if (!query || query === "") return;
 
@@ -215,7 +214,7 @@ export default function EditExistingArt() {
 
   useEffect(() => {
     if (step !== 3) return;
-    drawCanvas(imgSrc, canvasRef.current, completedCrop, brushSize);
+    drawCanvas(imgSrc, canvasRef.current, completedCrop, brushSize, true);
 
     setTimeout(() => {
       setOriginalImage(canvasRef.current.toDataURL("image/png;base64"));
@@ -225,8 +224,10 @@ export default function EditExistingArt() {
   return (
     <div className={styles.container}>
       <div className={styles.container__wrapper}>
-        {!isLoading && <h2 className={styles.container__title}>Edit existing art</h2>}
         <div className={styles.steps}>
+          {!isLoading && (
+            <h2 className={styles.container__title}>Edit existing art</h2>
+          )}
           <div className={styles.steps__wrapper}>
             {!isLoading && step < 5 && (
               <>
@@ -295,16 +296,12 @@ export default function EditExistingArt() {
                     onLoad={() => setStep((prevValue) => prevValue + 1)}
                   />
                 )}
-                {finishedUrl && (
+                {step === 3 && originalImage && (
                   <img
                     ref={imgRef}
                     alt="Crop me"
-                    src={finishedUrl}
-                    style={{
-                      width: completedCrop.width,
-                      height: completedCrop.height,
-                      margin: "auto",
-                    }}
+                    src={originalImage}
+                    onLoad={() => setStep((prevValue) => prevValue + 1)}
                   />
                 )}
                 {step === 2 && imgSrc && (
@@ -327,7 +324,7 @@ export default function EditExistingArt() {
                     />
                   </ReactCrop>
                 )}
-                {step >= 3 && !finishedUrl && !isLoading && (
+                {step >= 3 && !isLoading && (
                   <div style={{ margin: "auto" }}>
                     {!!completedCrop && (
                       <canvas
@@ -364,30 +361,73 @@ export default function EditExistingArt() {
               <>
                 <div className={styles.results}>
                   <div className={styles.results__gallery}>
-                    {resultsGallery.map((element) => 
-                      (<div className={styles.results__image_div}>
+                    {resultsGallery.map((element) => (
+                      <div
+                        className={styles.results__image_div}
+                        onClick={() => setShowModal(true)}
+                      >
                         <Image
                           src={element.url}
                           width={484}
                           height={484}
                           className={styles.results__image}
+                          onClick={() => setSelectedImage(element)}
                           alt=""
                         />
-                      </div>)
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <button
-                  className={styles.button}
-                  style={{ margin: "auto" }}
-                  onClick={() => location.reload()}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "16px",
+                  }}
                 >
-                  Try again
-                </button>
+                  <button
+                    className={styles.button}
+                    onClick={() => location.reload()}
+                  >
+                    Try again
+                  </button>
+                  <button
+                    className={styles.button}
+                    onClick={() => downloadImage(resultsGallery, true)}
+                  >
+                    Download all
+                  </button>
+                </div>
               </>
             )}
           </div>
         </div>
+        {showModal && (
+          <div className={styles.view_modal}>
+            <div className={styles.view_modal__wrapper}>
+              <div
+                className={styles.view_modal__close}
+                onClick={() => setShowModal(false)}
+              ></div>
+              <div className={styles.view_modal__image_div}>
+                <Image
+                  src={selectedImage.url}
+                  width={600}
+                  height={600}
+                  className={styles.view_modal__image}
+                  alt=""
+                />
+              </div>
+              <button
+                className={styles.button}
+                style={{ marginLeft: "auto" }}
+                onClick={() => downloadImage(selectedImage)}
+              >
+                Download
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

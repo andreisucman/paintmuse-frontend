@@ -3,11 +3,17 @@
 
 .container {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 
   &__wrapper {
     margin: auto;
     padding: 24px;
     width: 90vw;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @include mobile {
       padding: 16px;
@@ -19,13 +25,18 @@
     line-height: 140%;
     font-size: 2rem;
     text-align: center;
-    padding: 16px;
+    padding-bottom: 16px;
   }
 }
 
 .steps {
   justify-content: center;
   width: 100%;
+  max-width: 800px;
+  border: 2px solid var(--grey);
+  flex-grow: 1;
+  padding: 24px;
+  border-radius: 8px;
   
   &__topline {
     display: flex;
@@ -174,6 +185,9 @@
     
       max-height: 100px;
       width: 100%;
+      border: none;
+      background-color: var(--grey-light);
+      border-radius: 4px;
 
       @include mobile {
         width: unset;
@@ -194,9 +208,71 @@
   }
 }
 
+.view_modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--white);
+  border: 2px solid var(--grey);
+
+  border-radius: 8px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 48px 16px 24px;
+
+    position: relative;
+  }
+
+  &__image {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image_div {
+    max-width: 600px;
+    max-height: 600px;
+  }
+
+  &__close {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    padding: 10px;
+    z-index: 10;
+
+    background-image: url("../public/assets/cross.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+    @include tablet {
+      position: absolute;
+    }
+
+    @include mobile {
+      top: 16px;
+      right: 16px;
+    }
+  }
+}
+
 .results {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 16px;
 
   &__gallery {
@@ -215,17 +291,26 @@
   }
 
   &__image {
+    cursor: pointer;
     width: 100%;
-    height:fit-content;
+    height: fit-content;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: all 0.5s;
+
+    &:hover {
+      border: 2px solid var(--blue);
+    }
   }
 
   &__image_div {
-      width: 100%;
-      max-width: 400px;
+    width: 100%;
+    max-width: 400px;
+    background-image: url("../public/assets/placeholder.svg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
-}
-
-.image {
 }
 
 .canvas {
