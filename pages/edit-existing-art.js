@@ -300,6 +300,13 @@ export default function EditExistingArt() {
                     onLoad={() => setStep((prevValue) => prevValue + 1)}
                   />
                 )}
+                {step === 4 && imgSrc && (
+                  <img
+                    ref={imgRef}
+                    alt="Crop me"
+                    src={maskImage}
+                  />
+                )}
                 {step === 2 && imgSrc && (
                   <ReactCrop
                     crop={crop}
@@ -320,7 +327,7 @@ export default function EditExistingArt() {
                     />
                   </ReactCrop>
                 )}
-                {step >= 3 && !isLoading && (
+                {step === 3 && !isLoading && (
                   <div style={{ margin: "auto" }}>
                     {!!completedCrop && (
                       <canvas
