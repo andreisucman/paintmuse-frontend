@@ -15,7 +15,7 @@ export async function fetchGalleryImages({
   fields,
 }) {
   try {
-    const response = await Parse.Cloud.run(functionName, {
+    const data = {
       limit: 4,
       fields,
       sorted,
@@ -24,17 +24,23 @@ export async function fetchGalleryImages({
       medium,
       customerId,
       fetchOnce,
-    });
-  
+    };
+
+    console.log(data);
+    
+    const response = await Parse.Cloud.run(functionName, data);
+
+    console.log(response);
+
     if (response.length === 0) return;
     setGalleryImages([...galleryImages, ...response]);
-  
+
     // if (!fetchOnce) {
-      if (setSelectedImage) {
-        setSelectedImage(response[0]);
-      }
+    if (setSelectedImage) {
+      setSelectedImage(response[0]);
+    }
     // }
-  
+
     if (setIsLoading) {
       setIsLoading(false);
     }

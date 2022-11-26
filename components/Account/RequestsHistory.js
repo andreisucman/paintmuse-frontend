@@ -22,8 +22,12 @@ export default function RequestsHistory() {
   const [pageTTI, setPageTTI] = useState(1);
   const [pageEdit, setPageEdit] = useState(1);
   const [pageVariate, setPageVariate] = useState(1);
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
+    if (!currentUser) return;
+    if (fetched) return;
+
     fetchLatestPlaceholders({
       limit: 4,
       imageSetter: setTTIGallery,
@@ -53,10 +57,12 @@ export default function RequestsHistory() {
       setSelectedImage: setSelectedImageVariate,
       customerId: currentUser.customerId,
     });
-  }, []);
+
+    setFetched(true);
+  }, [fetched]);
 
   function handleLoadMoreTTI() {
-    fetchGalleryImages({
+    const params = {
       page: TTIpage + 1,
       galleryImages: TTIGallery,
       setGalleryImages: setTTIGallery,
@@ -64,31 +70,39 @@ export default function RequestsHistory() {
       fields: ["query", "medium", "style", "url", "createdAt", "imageId"],
       functionName: "fetchTextToImage",
       customerId: currentUser.customerId,
-    });
+    };
+
+    fetchGalleryImages(params);
     setTTIPage((prevValue) => prevValue + 1);
   }
 
   function handleLoadMoreEdits() {
-    fetchGalleryImages({
+    const params = {
       page: editPage + 1,
       galleryImages: editGallery,
       setGalleryImages: setEditGallery,
       setSelectedImage: setSelectedImageEdit,
       fields: ["query", "url", "createdAt", "imageId"],
       functionName: "fetchEditImage",
-    });
+      customerId: currentUser.customerId,
+    };
+
+    fetchGalleryImages(params);
     setEditPage((prevValue) => prevValue + 1);
   }
 
   function handleLoadMoreVariate() {
-    fetchGalleryImages({
+    const params = {
       page: variatePage + 1,
       galleryImages: variateGallery,
       setGalleryImages: setVariateGallery,
       setSelectedImage: setSelectedImageVariate,
       fields: ["url", "createdAt", "imageId"],
       functionName: "fetchVariateImage",
-    });
+      customerId: currentUser.customerId,
+    };
+
+    fetchGalleryImages(params);
     setVariatePage((prevValue) => prevValue + 1);
   }
 

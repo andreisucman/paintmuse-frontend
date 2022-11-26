@@ -65,8 +65,9 @@ export default function ImageModalSearch({
           {galleryImages.length === 0 && <div className={styles.container__nothing_found}>Nothing found</div>}
           {selectedImage && selectedImage.query && (
             <p className={styles.container__image_desc}>
-              {selectedImage.query.charAt(0).toUpperCase() + selectedImage.query.slice(1)} | {selectedImage.style} |{" "}
-              {selectedImage.medium}{" "}
+              {selectedImage.query && `${selectedImage.query.charAt(0).toUpperCase()}${selectedImage.query.slice(1)}`}
+              {selectedImage.style && `| ${selectedImage.style}`}
+              {selectedImage.medium && `| ${selectedImage.medium}`}
             </p>
           )}
 

@@ -40,9 +40,6 @@
     display:flex;
     justify-content: center;
 
-    @include tablet {
-    }
-
     @include mobile {
       min-width: 100%;
     }
@@ -55,6 +52,11 @@
     height: 100%;
     border: 2px solid transparent;
     transition: all 1s;
+
+    background-image: url("../../../public/assets/loading.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 
     &:hover {
       border: 2px solid var(--blue);

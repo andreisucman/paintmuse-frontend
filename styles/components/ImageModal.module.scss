@@ -113,8 +113,6 @@
   }
 
   &__image_desc {
-    padding: 8px 0;
-
     @include tablet {
       padding: 4px 0 16px 0;
     }
@@ -122,6 +120,11 @@
 
   &__image {
     border-radius: 4px;
+
+    background-image: url("../../public/assets/loading.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 
     @include tablet {
       width: 100%;

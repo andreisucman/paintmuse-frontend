@@ -67,8 +67,7 @@ export default function ImageList({
                   {element.style &&
                     `${element.style
                       .charAt(0)
-                      .toUpperCase()}${element.style.slice(1)}`}{" "}
-                  |{" "}
+                      .toUpperCase()}${element.style.slice(1)} |`}{" "}
                   {element.medium &&
                     `${element.medium
                       .charAt(0)

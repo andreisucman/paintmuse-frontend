@@ -80,6 +80,11 @@
     height: fit-content;
     border: 2px solid transparent;
     transition: all 1s;
+
+    background-image: url("../../../public/assets/loading.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     
     &:hover {
       border: 2px solid var(--blue);

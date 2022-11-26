@@ -10,7 +10,7 @@
   border-radius: 4px;
 
   display: grid;
-  grid-template-columns: 25px auto;
+  grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
   transition: all 0.5s;
@@ -34,12 +34,13 @@
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
+}
 
-  &::before {
-    content: "🠣";
-    color: var(--black);
-    left: 8px;
-    top: 10px;
-    font-size: 1.5rem;
-  }
+.icon {
+  width: 24px;
+  height: 20px;
+  background-image: url("../../../public/assets/load_more.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
