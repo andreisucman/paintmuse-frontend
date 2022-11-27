@@ -73,7 +73,7 @@ export default function RequestsSubsection({
             )}
           </>
         ) : (
-          <div>Nothing found</div>
+          <div className={styles.nothing_found}>Nothing found</div>
         )}
         {showImageModal && (
           <ImageModalSearch

@@ -1,16 +1,27 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useGetCurrentUser } from "../helpers/useCurrentUser";
+import getStripe from "../helpers/getStripe";
 import styles from "../styles/components/PricingCard.module.scss";
 
 export default function PricingCard({ data }) {
   const [showSubtitleInfo, setShowSubtitleInfo] = useState(false);
   const [showLicenseInfo, setShowLicenseInfo] = useState(false);
   const [showPrivacyInfo, setShowPrivacyInfo] = useState(false);
-  const [price, setPrice] = useState("");
   const [pricePerImage, setPricePerImage] = useState("");
+  const [price, setPrice] = useState("");
+  const currentUser = useGetCurrentUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    calculatePrice();
+    calculatePricePerImage();
+  }, []);
 
   function calculatePrice() {
     if (data.price) {
-      if (data.card_type === "monthly_subscription") {
+      if (data.card_type === "monthly_saving") {
         setPrice(`$${data.price} /month`);
       } else {
         setPrice(`$${data.price} /year`);
@@ -27,11 +38,6 @@ export default function PricingCard({ data }) {
       setPricePerImage(`${(data.price / data.quota).toFixed(2)}`);
     }
   }
-
-  useEffect(() => {
-    calculatePrice();
-    calculatePricePerImage();
-  }, []);
 
   function handleShowSubtitleInfo() {
     setShowSubtitleInfo(true);
@@ -57,13 +63,27 @@ export default function PricingCard({ data }) {
     }, 4000);
   }
 
+  async function handleButtonClick() {
+    if (!currentUser) router.push("/login");
+
+    const {
+      data: { id },
+    } = await axios.post("/api/checkout_sessions", {
+      items: [{ price: data.priceId, quantity: 1 }],
+      mode: data.card_type === "prepaid_flexible" ? "payment" : "subscription",
+      email: currentUser.email,
+    });
+
+    const stripe = await getStripe();
+    await stripe.redirectToCheckout({ sessionId: id });
+  }
+
   return (
     <div className={styles.card}>
       <div className={styles.card__wrapper}>
         <h3 className={styles.card__title}>{data.title}</h3>
         <div className={styles.card__subtitle}>
-          Images per{" "}
-          {data.card_type === "annual_subscription" ? "year" : "month"}
+          Images per {data.card_type === "annual_deal" ? "year" : "month"}
           <div
             className={styles.card__subtitle_info_icon}
             onClick={handleShowSubtitleInfo}
@@ -86,7 +106,8 @@ export default function PricingCard({ data }) {
         <p className={styles.card__price_div}>
           <span className={styles.card__price}>{price}</span>
         </p>
-        <p>Price per Image ${pricePerImage}</p>
+        <p>Price per image ${pricePerImage}</p>
+        <p>Extra images: {data.extrasPrice ? `$${data.extrasPrice}` : "-"}</p>
         <div className={styles.card__privacy_div}>
           Privacy:
           <label
@@ -145,7 +166,9 @@ export default function PricingCard({ data }) {
           )}
         </div>
 
-        <button className={styles.card__button}>Get started</button>
+        <button className={styles.card__button} onClick={handleButtonClick}>
+          Get started
+        </button>
       </div>
     </div>
   );

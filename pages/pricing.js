@@ -5,34 +5,40 @@ import Link from "next/link";
 export default function Pricing() {
   const data = [
     {
-      title: "Pay as you go",
-      card_type: "pay_as_you_go",
-      subtitle_info: "You pay per image",
+      title: "Prepaid flexible",
+      card_type: "prepaid_flexible",
+      subtitle_info: "Add funds to your balance and pay per image.",
       quota: null,
       price: null,
       pricePerImage: "0.45",
+      extrasPrice: null,
       privacy: "Public",
-      privacy_message: "Everyone can see the images you generated."
+      privacy_message: "Everyone can see the images you generated.",
+      priceId: "price_1M8hiyFOIAGAaeVifGD1zRTR"
     },
     {
-      title: "Monthly subscription",
-      card_type: "monthly_subscription",
+      title: "Monthly saving",
+      card_type: "monthly_saving",
       subtitle_info:
-        "Better value per image. Extras are billed per pay-as-you-go plan.",
+        "Better value per image. Extra images are billed per prepaid flexible plan.",
       quota: "90",
       price: "29",
+      extrasPrice: "0.45",
       privacy: "Private",
-      privacy_message: "Only you can see the images you generated."
+      privacy_message: "Only you can see the images you generated.",
+      priceId: "price_1M8ht9FOIAGAaeVilWOZlv9O"
     },
     {
-      title: "Annual offer",
-      card_type: "annual_subscription",
+      title: "Annual deal",
+      card_type: "annual_deal",
       subtitle_info:
-        "Best value per image. Extras are billed per pay-as-you-go plan.",
+        "Best value per image. Extra images are billed per monthly saving plan.",
       quota: "2160",
       price: "290",
+      extrasPrice: "0.32",
       privacy: "Private",
-      privacy_message: "Only you can see the images you generated."
+      privacy_message: "Only you can see the images you generated.",
+      priceId: "price_1M8i6tFOIAGAaeViafj6h8oL"
     },
   ];
 

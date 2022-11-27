@@ -1,0 +1,56 @@
+@import "./helpers/mixins.scss";
+
+.container {
+  cursor: default; 
+  flex-grow: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapper {
+    padding: 24px 32px 24px 24px;
+
+    width: fit-content;
+
+    background-color: var(--grey-light);
+    border-radius: 8px;
+  }
+}
+
+.success {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+
+  @include mobile {
+    flex-direction: column;
+  }
+
+  &__text_div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__text {
+    font-size: 2rem;
+    font-family: "Baloo Bhai", "Montserrat", "sans-serif";
+    line-height: 120%;
+  }
+
+  &__icon {
+    background-image: url("../public/assets/checkmark.webp");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.link {
+  padding: 16px 0;
+  text-align: center;
+  font-style: italic;
+}

@@ -1,3 +1,4 @@
+@import "../../helpers/mixins.scss";
 @import "../../helpers/animations.scss";
 
 .container {
@@ -18,7 +19,6 @@
 
   &__row {
     display: grid;
-    grid-template-columns: minmax(200px, auto) 1fr auto;
     padding: 8px;
   }
 
@@ -28,6 +28,7 @@
     color: var(--white);
     width: 100%;
     margin-top: 8px;
+    max-width: 225px;
 
     border-radius: 4px;
     transition: all 1s;
@@ -38,6 +39,10 @@
     linear-gradient(336deg, #CE7E7A, rgba(0,0,255,0) 70.71%);
     background-size: 150%;
     animation: flipColorsBack 1s ease forwards;
+
+    @include mobile {
+      max-width: unset;
+    }
 
     &:hover {
       animation: flipColors 1s ease forwards;
@@ -51,5 +56,15 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
+  }
+}
+
+.table {
+  &__item {
+    padding: 8px 0;
+
+    &_cancel {
+      cursor: pointer;
+    }
   }
 }

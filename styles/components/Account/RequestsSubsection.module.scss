@@ -72,3 +72,15 @@
     cursor: default;
   }
 }
+
+.nothing_found {
+  cursor: default;
+  padding: 24px;
+  text-align: center;
+  background-color: var(--grey-light);
+  color: white;
+  font-family: "Baloo Bhai", "Montserrat", "sans-serif";
+  font-size: 1.5rem;
+  border-radius: 8px;
+  margin: 12px 0;
+}

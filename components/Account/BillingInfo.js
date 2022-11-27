@@ -12,7 +12,17 @@ export default function BillingInfo() {
         <h2 className={styles.container__title}>Billing</h2>
         <div className={styles.container__content}>
           <div className={styles.container__row}>
-            <button className={styles.container__button}>Choose your plan</button>
+            <ul className={styles.table}>
+              <li className={styles.table__item}>Current plan: Prepaid flexible</li>
+              <li className={styles.table__item}>Balance in USD: 9.73</li>
+              <li className={styles.table__item}>Balance in images: 21</li>
+              <li className={styles.table__item}>Started on: 22 Nov 2022</li>
+              <li className={styles.table__item}>Renews on: 22 Dec 2022</li>
+              <li className={`${styles.table__item} ${styles.table__item_cancel}`}>Cancel subscription</li>
+            </ul>
+          </div>
+          <div className={styles.container__row}>
+            <button className={styles.container__button}>Subscribe and save</button>
           </div>
         </div>
       </div>
