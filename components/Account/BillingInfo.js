@@ -83,7 +83,7 @@ export default function BillingInfo() {
       mode: "subscription",
     };
 
-    startCheckout(params);
+    await startCheckout(params);
     setButtonClicked(false);
   }
 
