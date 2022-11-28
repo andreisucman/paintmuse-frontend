@@ -41,7 +41,16 @@ export default function Header() {
     Parse.User.logOut();
   }
 
-  // close menu on click outside
+  function handleRedirect(endpoint) {
+    if (currentUser) {
+      router.push(endpoint);
+      handleActiveLink(endpoint);
+    } else {
+      router.push("/login");
+    }
+  }
+
+  // #region close menu on click outside
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       if (
@@ -60,8 +69,6 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //close menu on scroll
-
   useEffect(() => {
     document.addEventListener("scroll", () => setMenuOpen(false));
 
@@ -69,15 +76,7 @@ export default function Header() {
       document.removeEventListener("scroll", () => setMenuOpen(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  function handleRedirect(endpoint) {
-    if (currentUser) {
-      router.push(endpoint);
-      handleActiveLink(endpoint);
-    } else {
-      router.push("/login");
-    }
-  }
+  //#endregion
 
   return (
     <header className={styles.container} id="header">
@@ -150,7 +149,7 @@ export default function Header() {
                   }
                 >
                   <button
-                    onClick={() => handleRedirect("/pricing")}
+                    onClick={() => router.push("/pricing")}
                     className={styles.container__product_buttons_list_link}
                   >
                     Pricing
