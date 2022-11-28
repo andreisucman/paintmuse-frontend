@@ -171,7 +171,7 @@ export default function PricingCard({ data }) {
               width={19}
               height={19}
               type={"bars"}
-              color="#dddddd"
+              color="#ffffff"
             />
           ) : (
             "Get started"

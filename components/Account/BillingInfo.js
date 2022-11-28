@@ -4,6 +4,7 @@ import { useGetCurrentUser } from "../../helpers/useCurrentUser";
 import { getReadableDate } from "../../helpers/getReadableDate";
 import { startCheckout } from "../../helpers/startCheckout";
 import styles from "../../styles/components/Account/BillingInfo.module.scss";
+import ReactLoading from "react-loading";
 
 export default function BillingInfo() {
   const currentUser = useGetCurrentUser();
@@ -59,6 +60,7 @@ export default function BillingInfo() {
   }
 
   async function handleUpgrade(currentPlan) {
+    setButtonClicked(true);
     if (!currentUser) return;
 
     let priceId;
@@ -78,10 +80,11 @@ export default function BillingInfo() {
       currentUser,
       loadingSetter: setButtonClicked,
       mode: "subscription",
-      customer: currentUser.customerId
+      customer: currentUser.customerId,
     };
 
     startCheckout(params);
+    setButtonClicked(false);
   }
 
   useEffect(() => {
@@ -129,9 +132,22 @@ export default function BillingInfo() {
                 className={styles.container__button}
                 onClick={() => handleUpgrade(customerInfo.plan)}
               >
-                {customerInfo && customerInfo.plan === "Prepaid flexible"
-                  ? "Save with monthly plan"
-                  : "Save more with annual plan"}
+                {buttonClicked ? (
+                  <>
+                    <ReactLoading
+                      width={19}
+                      height={19}
+                      type={"bars"}
+                      color="#ffffff"
+                    />
+                  </>
+                ) : (
+                  <>
+                    {customerInfo && customerInfo.plan === "Prepaid flexible"
+                      ? "Save with monthly plan"
+                      : "Save more with annual plan"}
+                  </>
+                )}
               </button>
             </div>
           </div>
