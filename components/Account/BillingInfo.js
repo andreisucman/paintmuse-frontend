@@ -22,7 +22,7 @@ export default function BillingInfo() {
             </ul>
           </div>
           <div className={styles.container__row}>
-            <button className={styles.container__button}>Subscribe and save</button>
+            <button className={styles.container__button}>Save with monthly plan</button>
           </div>
         </div>
       </div>

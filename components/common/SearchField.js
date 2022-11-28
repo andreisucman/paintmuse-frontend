@@ -7,12 +7,10 @@ import { useGetMethods, useGetCurrentState } from "./ContextProvider";
 import { useGetCurrentUser } from "../../helpers/useCurrentUser";
 import { handleQueryEntry } from "../../helpers/handleQueryEntry";
 import { handleSetPrompt } from "../../helpers/handleSetPrompt";
-import { fetchGalleryImages } from "../../helpers/fetchGalleryImages";
 import styles from "../../styles/components/common/SearchField.module.scss";
 
 export default function SearchField({
   text,
-  filterField,
   countSelection,
   style,
   medium,

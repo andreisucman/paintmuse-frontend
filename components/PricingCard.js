@@ -4,12 +4,14 @@ import { useRouter } from "next/router";
 import { useGetCurrentUser } from "../helpers/useCurrentUser";
 import getStripe from "../helpers/getStripe";
 import styles from "../styles/components/PricingCard.module.scss";
+import ReactLoading from "react-loading";
 
 export default function PricingCard({ data }) {
   const [showSubtitleInfo, setShowSubtitleInfo] = useState(false);
   const [showLicenseInfo, setShowLicenseInfo] = useState(false);
   const [showPrivacyInfo, setShowPrivacyInfo] = useState(false);
   const [pricePerImage, setPricePerImage] = useState("");
+  const [buttonClicked, setButtonClicked] = useState(false);
   const [price, setPrice] = useState("");
   const currentUser = useGetCurrentUser();
   const router = useRouter();
@@ -64,6 +66,7 @@ export default function PricingCard({ data }) {
   }
 
   async function handleButtonClick() {
+    setButtonClicked(true);
     if (!currentUser) router.push("/login");
 
     const {
@@ -167,7 +170,16 @@ export default function PricingCard({ data }) {
         </div>
 
         <button className={styles.card__button} onClick={handleButtonClick}>
-          Get started
+          {buttonClicked ? (
+              <ReactLoading
+                width={19}
+                height={19}
+                type={"bars"}
+                color="#dddddd"
+              />
+          ) : (
+            "Get started"
+          )}
         </button>
       </div>
     </div>

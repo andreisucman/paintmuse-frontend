@@ -158,71 +158,10 @@
     }
   }
 
-  // &__privacy {
-  //   &_highlight {
-  //     font-weight: 500;
-  //     color: var(--blue)
-  //   }
-
-  //   &_input {
-  //     width: 0;
-  //     height: 0;
-  //     margin: 0;
-  //   }
-
-  //   &_label {
-  //     border: 1px solid var(--blue);
-  //     color: var(--blue);
-  //     padding: 4px 6px;
-  //     border-radius: 4px;
-  //     transition: all 1s;
-
-  //     -webkit-user-select: none; /* Safari */        
-  //     -moz-user-select: none; /* Firefox */
-  //     -ms-user-select: none; /* IE10+/Edge */
-  //     user-select: none; /* Standard */
-  //   }
-
-  //   &_info_icon {
-  //     cursor: pointer;
-  //     width: 18px;
-  //     height: 18px;
-
-  //     background-image: url("../../public/assets/info.svg");
-  //     background-position: center;
-  //     background-size: contain;
-  //     background-repeat: no-repeat;
-  //   }
-
-  //   &_info {
-  //     position: absolute;
-  //     background-color: var(--grey-light);
-  //     padding: 24px 8px;
-  //     border-radius: 4px;
-  //     font-size: 0.9rem;
-  //     left: 0;
-  //     right: 0;
-
-  //     &_close {
-  //       cursor: pointer;
-  //       position: absolute;
-  //       top: 0;
-  //       right: 0;
-  //       padding: 8px;
-  //       z-index: 2;
-  
-  //       width: 10px;
-  //       height: 10px;
-  
-  //       background-image: url("../../public/assets/cross.svg");
-  //       background-position: center;
-  //       background-size: 10px;
-  //       background-repeat: no-repeat;
-  //     }
-  //   }
-  // }
-
   &__button {
+    display: flex;
+    justify-content: center;
+
     cursor: pointer;
     padding: 16px 24px;
     background-color: transparent;
@@ -232,7 +171,7 @@
     border: none;
     color: var(--white);
 
-    margin-top: 16px;
+    margin-top: 8px;
     background: linear-gradient(217deg, #AB0830, rgba(255,0,0,0) 90.71%),
     linear-gradient(127deg, #1C91C8, rgba(0,255,0,0) 70.71%),
     linear-gradient(336deg, #CE7E7A, rgba(0,0,255,0) 70.71%);
@@ -247,14 +186,14 @@
       transform: scale(0.9);
     }
 
-    &_special {
-      background-color: var(--blue);
-      color: var(--white);
+    // &_special {
+    //   background-color: var(--blue);
+    //   color: var(--white);
 
-      &:hover {
-        background-color: var(--blue-dark);
-      }
-    }
+    //   &:hover {
+    //     background-color: var(--blue-dark);
+    //   }
+    // }
 
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
