@@ -108,7 +108,7 @@ export default function BillingInfo() {
                     <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
-                      <Link href={process.env.NEXT_PUBLIC_CHECKOUT_PAGE}>
+                      <Link href={process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}>
                         Cancel subscription
                       </Link>
                     </li>
