@@ -19,23 +19,12 @@ export default function BillingInfo() {
     const User = Parse.Object.extend(Parse.User);
     const query = new Parse.Query(User);
     query.equalTo("customerId", currentUser.customerId);
+    const result = await query.first();
 
-    const subscription = await query.subscribe();
-
-    subscription.on("update", async () => {
-      const result = await query.first();
-
-      setCustomerInfo({
-        plan: result.attributes.customerPlan,
-        quotaUsd: result.attributes.quotaUsd,
-        quotaImg: result.attributes.quotaImg,
-        startedOn: getReadableDate(result.attributes.createdAt),
-        renewsOn: getReadableDate(result.attributes.renewsOn),
-      });
-    });
+    const customerPlan = result.attributes.customerPlan;
 
     let plan;
-    switch (currentUser.customerPlan) {
+    switch (customerPlan) {
       case 0:
         plan = "Prepaid flexible";
         break;
@@ -51,10 +40,10 @@ export default function BillingInfo() {
 
     setCustomerInfo({
       plan,
-      quotaUsd: currentUser.quotaUsd,
-      quotaImg: currentUser.quotaImg,
-      startedOn: getReadableDate(currentUser.createdAt),
-      renewsOn: getReadableDate(currentUser.renewsOn.iso),
+      quotaUsd: result.attributes.quotaUsd,
+      quotaImg: result.attributes.quotaImg,
+      startedOn: getReadableDate(result.attributes.createdAt),
+      renewsOn: getReadableDate(result.attributes.renewsOn.iso),
     });
 
     setFetched(true);

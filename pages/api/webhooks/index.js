@@ -37,7 +37,6 @@ const webhookHandler = async (req, res) => {
       return;
     }
 
-
     if (event.type === "checkout.session.completed") {
       const object = event.data.object;
 
