@@ -22,7 +22,7 @@ export default function PricingCard({ data }) {
 
   function calculatePrice() {
     if (data.price) {
-      if (data.cardType === "monthlySaving") {
+      if (data.cardType === "Monthly saving") {
         setPrice(`$${data.price} /month`);
       } else {
         setPrice(`$${data.price} /year`);
