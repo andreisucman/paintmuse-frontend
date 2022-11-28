@@ -155,6 +155,11 @@ export default function PricingCard({ data }) {
         <button
           className={styles.card__button}
           onClick={() => {
+            if (!currentUser) {
+              router.push("/login");
+              return;
+            } 
+            
             const params = {
               priceId: data.priceId,
               loadingSetter: setButtonClicked,
