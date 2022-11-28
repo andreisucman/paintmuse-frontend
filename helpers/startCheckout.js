@@ -8,6 +8,7 @@ export async function startCheckout({
   router,
   cardType,
   mode,
+  customerId,
 }) {
   loadingSetter(true);
   if (router) {
@@ -20,6 +21,7 @@ export async function startCheckout({
     items: [{ price: priceId, quantity: 1 }],
     mode: mode ? mode : cardType === "Prepaid flexible" ? "payment" : "subscription",
     email: currentUser.email,
+    customerId,
   });
 
   const stripe = await getStripe();

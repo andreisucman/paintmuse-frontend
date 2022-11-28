@@ -161,7 +161,7 @@ export default function PricingCard({ data }) {
               currentUser,
               router,
               cardType: data.title,
-              customer: currentUser.customerId
+              customerId: currentUser.customerId
             };
             startCheckout(params);
           }}
