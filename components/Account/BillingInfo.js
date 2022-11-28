@@ -80,7 +80,6 @@ export default function BillingInfo() {
       currentUser,
       loadingSetter: setButtonClicked,
       mode: "subscription",
-      // customerId: currentUser.customerId,
     };
 
     startCheckout(params);

@@ -43,7 +43,7 @@ const webhookHandler = async (req, res) => {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/updateQuota`, {
         mode: object.mode,
         amount: object.amount_subtotal,
-        customerId: object.customer,
+        email: object.customer_email
       });
 
       console.log(response);
