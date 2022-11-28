@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ImageModalSearch from "../ImageModalSearch";
 import LoadMoreButton from "../common/LoadMoreButton";
 import styles from "../../styles/components/Account/RequestsSubsection.module.scss";

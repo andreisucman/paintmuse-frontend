@@ -1,10 +1,9 @@
-import axios from "axios";
+import ReactLoading from "react-loading";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useGetCurrentUser } from "../helpers/useCurrentUser";
-import getStripe from "../helpers/getStripe";
+import { startCheckout } from "../helpers/startCheckout";
 import styles from "../styles/components/PricingCard.module.scss";
-import ReactLoading from "react-loading";
 
 export default function PricingCard({ data }) {
   const [showSubtitleInfo, setShowSubtitleInfo] = useState(false);
@@ -23,7 +22,7 @@ export default function PricingCard({ data }) {
 
   function calculatePrice() {
     if (data.price) {
-      if (data.card_type === "monthly_saving") {
+      if (data.cardType === "monthlySaving") {
         setPrice(`$${data.price} /month`);
       } else {
         setPrice(`$${data.price} /year`);
@@ -65,28 +64,12 @@ export default function PricingCard({ data }) {
     }, 4000);
   }
 
-  async function handleButtonClick() {
-    setButtonClicked(true);
-    if (!currentUser) router.push("/login");
-
-    const {
-      data: { id },
-    } = await axios.post("/api/checkout_sessions", {
-      items: [{ price: data.priceId, quantity: 1 }],
-      mode: data.card_type === "prepaid_flexible" ? "payment" : "subscription",
-      email: currentUser.email,
-    });
-
-    const stripe = await getStripe();
-    await stripe.redirectToCheckout({ sessionId: id });
-  }
-
   return (
     <div className={styles.card}>
       <div className={styles.card__wrapper}>
         <h3 className={styles.card__title}>{data.title}</h3>
         <div className={styles.card__subtitle}>
-          Images per {data.card_type === "annual_deal" ? "year" : "month"}
+          Images per {data.cardType === "annualDeal" ? "year" : "month"}
           <div
             className={styles.card__subtitle_info_icon}
             onClick={handleShowSubtitleInfo}
@@ -169,14 +152,26 @@ export default function PricingCard({ data }) {
           )}
         </div>
 
-        <button className={styles.card__button} onClick={handleButtonClick}>
+        <button
+          className={styles.card__button}
+          onClick={() => {
+            const params = {
+              priceId: data.priceId,
+              loadingSetter: setButtonClicked,
+              currentUser,
+              router,
+              cardType: data.cardType,
+            };
+            startCheckout(params);
+          }}
+        >
           {buttonClicked ? (
-              <ReactLoading
-                width={19}
-                height={19}
-                type={"bars"}
-                color="#dddddd"
-              />
+            <ReactLoading
+              width={19}
+              height={19}
+              type={"bars"}
+              color="#dddddd"
+            />
           ) : (
             "Get started"
           )}

@@ -1,30 +1,138 @@
+import Parse from "parse";
 import { useEffect, useState } from "react";
 import { useGetCurrentUser } from "../../helpers/useCurrentUser";
+import { getReadableDate } from "../../helpers/getReadableDate";
+import { startCheckout } from "../../helpers/startCheckout";
 import styles from "../../styles/components/Account/BillingInfo.module.scss";
 
 export default function BillingInfo() {
   const currentUser = useGetCurrentUser();
-  const [user, setUser] = useState(null);
+  const [customerInfo, setCustomerInfo] = useState(null);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [fetched, setFetched] = useState(false);
+
+  async function getCurrentPlan() {
+    if (!currentUser) return;
+    if (fetched) return;
+
+    const query = new Parse.Query(Parse.User);
+    query.equalTo("customerId", currentUser.customerId);
+
+    const subscription = await query.subscribe();
+
+    subscription.on("update", async () => {
+      const result = await query.first();
+
+      setCustomerInfo({
+        plan: result.attributes.customerPlan,
+        quotaUsd: result.attributes.quotaUsd,
+        quotaImg: result.attributes.quotaImg,
+        startedOn: getReadableDate(result.attributes.createdAt),
+        renewsOn: getReadableDate(result.attributes.renewsOn),
+      });
+    });
+
+    let plan;
+    switch (currentUser.customerPlan) {
+      case 0:
+        plan = "Prepaid flexible";
+        break;
+      case 1:
+        plan = "Monthly saving";
+        break;
+      case 2:
+        plan = "Annual deal";
+        break;
+      default:
+        plan = "Prepaid flexible";
+    }
+
+    setCustomerInfo({
+      plan,
+      quotaUsd: currentUser.quotaUsd,
+      quotaImg: currentUser.quotaImg,
+      startedOn: getReadableDate(currentUser.createdAt),
+      renewsOn: getReadableDate(currentUser.renewsOn.iso),
+    });
+
+    setFetched(true);
+  }
+
+  async function handleUpgrade(currentPlan) {
+    if (!currentUser) return;
+
+    let priceId;
+    switch (await currentPlan) {
+      case "Prepaid flexible":
+        priceId = "price_1M8ht9FOIAGAaeVilWOZlv9O";
+        break;
+      case "Monthly saving":
+        priceId = "price_1M8i6tFOIAGAaeViafj6h8oL";
+        break;
+      default:
+        throw new Error("Plan is undefined");
+    }
+
+    const params = {
+      priceId,
+      currentUser,
+      loadingSetter: setButtonClicked,
+      mode: "subscription",
+    };
+
+    startCheckout(params);
+  }
+
+  useEffect(() => {
+    getCurrentPlan();
+  }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.container__wrapper}>
         <h2 className={styles.container__title}>Billing</h2>
-        <div className={styles.container__content}>
-          <div className={styles.container__row}>
-            <ul className={styles.table}>
-              <li className={styles.table__item}>Current plan: Prepaid flexible</li>
-              <li className={styles.table__item}>Balance in USD: 9.73</li>
-              <li className={styles.table__item}>Balance in images: 21</li>
-              <li className={styles.table__item}>Started on: 22 Nov 2022</li>
-              <li className={styles.table__item}>Renews on: 22 Dec 2022</li>
-              <li className={`${styles.table__item} ${styles.table__item_cancel}`}>Cancel subscription</li>
-            </ul>
+        {customerInfo && (
+          <div className={styles.container__content}>
+            <div className={styles.container__row}>
+              <ul className={styles.table}>
+                <li className={styles.table__item}>
+                  Current plan: {customerInfo.plan}
+                </li>
+                <li className={styles.table__item}>
+                  Balance: ${customerInfo.quotaUsd.toFixed(1)}
+                </li>
+                <li className={styles.table__item}>
+                  Image quota: {customerInfo.quotaImg}
+                </li>
+                {customerInfo.plan !== "Prepaid flexible" && (
+                  <>
+                    <li className={styles.table__item}>
+                      Started on: {customerInfo.startedOn}
+                    </li>
+                    <li className={styles.table__item}>
+                      Renews on: {customerInfo.renewsOn}
+                    </li>
+                    <li
+                      className={`${styles.table__item} ${styles.table__item_cancel}`}
+                    >
+                      Cancel subscription
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
+            <div className={styles.container__row}>
+              <button
+                className={styles.container__button}
+                onClick={() => handleUpgrade(customerInfo.plan)}
+              >
+                {customerInfo && customerInfo.plan === "Prepaid flexible"
+                  ? "Save with the monthly plan"
+                  : "Save more with the annual plan"}
+              </button>
+            </div>
           </div>
-          <div className={styles.container__row}>
-            <button className={styles.container__button}>Save with monthly plan</button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ export const config = {
 
 const cors = Cors({
   allowMethods: ["POST", "HEAD"],
-  origin: "*"
+  origin: ["https://paintmuse.com", "https://www.paintmuse.com"],
 });
 
 const webhookHandler = async (req, res) => {
@@ -40,28 +40,9 @@ const webhookHandler = async (req, res) => {
     // Successfully constructed event.
     console.log("✅ Success:", event.id);
 
-    switch (event.type) {
-      case "payment_intent.succeeded": {
-        const paymentIntent = event.data.object;
-        console.log(`PaymentIntent status: ${paymentIntent.status}`);
-        break;
-      }
-      case "payment_intent.payment_failed": {
-        const paymentIntent = event.data.object;
-        console.log(
-          `❌ Payment failed: ${paymentIntent.last_payment_error?.message}`
-        );
-        break;
-      }
-      case "charge.succeeded": {
-        const charge = event.data.object;
-        console.log(`Charge id: ${charge.id}`);
-        break;
-      }
-      default: {
-        console.warn(`Unhandled event type: ${event.type}`);
-        break;
-      }
+    if (event.type === "checkout.session.completed") {
+      const checkoutSessionDetails = event.data.object;
+      console.log(`Checkout data: ${checkoutSessionDetails}`);
     }
 
     // Return a response to acknowledge receipt of the event.
