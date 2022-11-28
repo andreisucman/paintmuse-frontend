@@ -130,8 +130,8 @@ export default function BillingInfo() {
                 onClick={() => handleUpgrade(customerInfo.plan)}
               >
                 {customerInfo && customerInfo.plan === "Prepaid flexible"
-                  ? "Save with the monthly plan"
-                  : "Save more with the annual plan"}
+                  ? "Save with monthly plan"
+                  : "Save more with annual plan"}
               </button>
             </div>
           </div>

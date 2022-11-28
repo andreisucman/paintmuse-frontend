@@ -16,7 +16,6 @@ export const config = {
 
 const cors = Cors({
   allowMethods: ["POST", "HEAD"],
-  origin: ["https://paintmuse.com", "https://www.paintmuse.com"],
 });
 
 const webhookHandler = async (req, res) => {
