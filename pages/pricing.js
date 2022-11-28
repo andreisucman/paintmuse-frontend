@@ -6,7 +6,6 @@ export default function Pricing() {
   const data = [
     {
       title: "Prepaid flexible",
-      cardType: "Prepaid flexible",
       subtitle_info: "Add funds to your balance and pay per image.",
       quota: null,
       price: null,
@@ -18,7 +17,6 @@ export default function Pricing() {
     },
     {
       title: "Monthly saving",
-      cardType: "Monthly saving",
       subtitle_info:
         "Better value per image. Extra images are billed per prepaid flexible plan.",
       quota: "90",
@@ -30,7 +28,6 @@ export default function Pricing() {
     },
     {
       title: "Annual deal",
-      cardType: "Annual deal",
       subtitle_info:
         "Best value per image. Extra images are billed per monthly saving plan.",
       quota: "2160",

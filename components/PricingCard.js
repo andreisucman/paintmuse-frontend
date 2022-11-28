@@ -22,7 +22,7 @@ export default function PricingCard({ data }) {
 
   function calculatePrice() {
     if (data.price) {
-      if (data.cardType === "Monthly saving") {
+      if (data.title === "Monthly saving") {
         setPrice(`$${data.price} /month`);
       } else {
         setPrice(`$${data.price} /year`);
@@ -69,7 +69,7 @@ export default function PricingCard({ data }) {
       <div className={styles.card__wrapper}>
         <h3 className={styles.card__title}>{data.title}</h3>
         <div className={styles.card__subtitle}>
-          Images per {data.cardType === "Annual deal" ? "year" : "month"}
+          Images per {data.title === "Annual deal" ? "year" : "month"}
           <div
             className={styles.card__subtitle_info_icon}
             onClick={handleShowSubtitleInfo}
@@ -160,7 +160,7 @@ export default function PricingCard({ data }) {
               loadingSetter: setButtonClicked,
               currentUser,
               router,
-              cardType: data.cardType,
+              cardType: data.title,
               customer: currentUser.customerId
             };
             startCheckout(params);

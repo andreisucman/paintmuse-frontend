@@ -133,14 +133,12 @@ export default function BillingInfo() {
                 onClick={() => handleUpgrade(customerInfo.plan)}
               >
                 {buttonClicked ? (
-                  <>
                     <ReactLoading
                       width={19}
                       height={19}
                       type={"bars"}
                       color="#ffffff"
                     />
-                  </>
                 ) : (
                   <>
                     {customerInfo && customerInfo.plan === "Prepaid flexible"
