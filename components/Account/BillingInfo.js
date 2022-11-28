@@ -16,7 +16,8 @@ export default function BillingInfo() {
     if (!currentUser) return;
     if (fetched) return;
 
-    const query = new Parse.Query(Parse.User);
+    const User = Parse.Object.extend(Parse.User);
+    const query = new Parse.Query(User);
     query.equalTo("customerId", currentUser.customerId);
 
     const subscription = await query.subscribe();
