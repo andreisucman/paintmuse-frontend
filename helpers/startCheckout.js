@@ -21,7 +21,7 @@ export async function startCheckout({
     items: [{ price: priceId, quantity: 1 }],
     mode: mode ? mode : cardType === "Prepaid flexible" ? "payment" : "subscription",
     email: currentUser.email,
-    customerId,
+    // customerId,
   });
 
   const stripe = await getStripe();
