@@ -78,6 +78,7 @@ export default function BillingInfo() {
       currentUser,
       loadingSetter: setButtonClicked,
       mode: "subscription",
+      customer: currentUser.customerId
     };
 
     startCheckout(params);
@@ -115,7 +116,9 @@ export default function BillingInfo() {
                     <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
-                      Cancel subscription
+                      <Link href={process.env.NEXT_PUBLIC_CHECKOUT_PAGE}>
+                        Cancel subscription
+                      </Link>
                     </li>
                   </>
                 )}
