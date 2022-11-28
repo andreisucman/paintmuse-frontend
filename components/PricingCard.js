@@ -159,7 +159,7 @@ export default function PricingCard({ data }) {
               router.push("/login");
               return;
             } 
-            
+
             const params = {
               priceId: data.priceId,
               loadingSetter: setButtonClicked,
@@ -168,6 +168,7 @@ export default function PricingCard({ data }) {
               cardType: data.title,
               customerId: currentUser.customerId
             };
+            
             startCheckout(params);
           }}
         >
