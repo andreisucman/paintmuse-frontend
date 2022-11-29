@@ -16,7 +16,7 @@ export async function startCheckout({
 
   const {
     data: { id },
-  } = await axios.post("/api/checkout_sessions", {
+  } = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/checkout_sessions`, {
     items: [{ price: priceId, quantity: 1 }],
     mode: mode ? mode : cardType === "Prepaid flexible" ? "payment" : "subscription",
     email: currentUser.email,

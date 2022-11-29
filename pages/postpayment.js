@@ -4,13 +4,13 @@ import fetcher from "../helpers/fetcher";
 import useSWR from "swr";
 import styles from "../styles/Postpayment.module.scss";
 
-export default function Success() {
+export default function Postpayment() {
   const {
     query: { session_id },
   } = useRouter();
 
   const { data, error } = useSWR(
-    () => `/api/checkout_sessions/${session_id}`,
+    () => `${process.env.NEXT_PUBLIC_SERVER_URL}/retrieveCheckout/${session_id}`,
     fetcher
   );
 
