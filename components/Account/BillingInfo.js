@@ -109,7 +109,7 @@ export default function BillingInfo() {
                     <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
-                      <Link href={process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}>
+                      <Link href={`${process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}/p/login/14k0352xvewweVW3cc`}>
                         Cancel subscription
                       </Link>
                     </li>
