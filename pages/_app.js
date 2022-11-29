@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
     <ContextProvider>
       <div className="page">
         <Head>
-          <title>Make Better Art With Custom-Made AI Mood Boards Inspired By Your Imagination</title>
+          <title>Create Better Art With Custom-Made AI Mood Boards Inspired By Your Imagination</title>
           <meta
             name="description"
             content="Free AI mood board and stock images created by your imagination"

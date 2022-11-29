@@ -104,9 +104,9 @@ export default function BillingInfo() {
                 {customerInfo.plan !== "Prepaid flexible" && (
                   <>
                     <li className={styles.table__item}>
-                      {customerInfo.planCancelled ? "Expire on: " : "Renews on: "}{customerInfo.renewsOn}
+                      {customerInfo.cancelledPlan > 0 ? "Expire on: " : "Renews on: "}{customerInfo.renewsOn}
                     </li>
-                    <li
+                    {customerInfo.cancelledPlan === 0 && <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
                       <a
@@ -114,7 +114,7 @@ export default function BillingInfo() {
                       >
                         Cancel subscription
                       </a>
-                    </li>
+                    </li>}
                   </>
                 )}
                 {customerInfo.plan !== "Annual deal" && (
