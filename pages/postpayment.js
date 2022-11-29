@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import fetcher from "../helpers/fetcher";
 import useSWR from "swr";
-import styles from "../styles/Success.module.scss";
+import styles from "../styles/Postpayment.module.scss";
 
 export default function Success() {
   const {

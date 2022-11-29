@@ -35,7 +35,7 @@ const webhookHandler = async (req, res) => {
     if (event.type === "checkout.session.completed") {
       const object = event.data.object;
 
-      await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/updateQuota`, {
+      axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/updateQuota`, {
         mode: object.mode,
         amount: object.amount_subtotal,
         email: object.customer_email,
