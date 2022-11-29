@@ -22,6 +22,8 @@ export default function BillingInfo() {
     query.equalTo("customerId", currentUser.customerId);
     const result = await query.first();
 
+    console.log(result.attributes.renewsOn);
+
     const customerPlan = result.attributes.customerPlan;
 
     let plan;
@@ -44,7 +46,7 @@ export default function BillingInfo() {
       quotaUsd: result.attributes.quotaUsd,
       quotaImg: result.attributes.quotaImg,
       startedOn: getReadableDate(result.attributes.createdAt),
-      renewsOn: getReadableDate(result.attributes.renewsOn.iso),
+      renewsOn: getReadableDate(result.attributes.renewsOn),
     });
 
     setFetched(true);
@@ -109,7 +111,7 @@ export default function BillingInfo() {
                     <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
-                      <Link href={`${process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}/p/login/14k0352xvewweVW3cc`}>
+                      <Link href={`${process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}/p/login/test_fZe4gG2yU6mN3bG5kk`}>
                         Cancel subscription
                       </Link>
                     </li>
