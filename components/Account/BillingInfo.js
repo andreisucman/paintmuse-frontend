@@ -108,7 +108,7 @@ export default function BillingInfo() {
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
                       <a
-                        href={`${process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}/p/login/test_fZe4gG2yU6mN3bG5kk`}
+                        href="https://checkout.paintmuse.com/p/login/test_fZe4gG2yU6mN3bG5kk"
                       >
                         Cancel subscription
                       </a>
