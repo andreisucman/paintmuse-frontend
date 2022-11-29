@@ -22,8 +22,6 @@ export default function BillingInfo() {
     query.equalTo("customerId", currentUser.customerId);
     const result = await query.first();
 
-    console.log(result.attributes.renewsOn);
-
     const customerPlan = result.attributes.customerPlan;
 
     let plan;
@@ -43,8 +41,8 @@ export default function BillingInfo() {
 
     setCustomerInfo({
       plan,
-      quotaUsd: result.attributes.quotaUsd,
-      quotaImg: result.attributes.quotaImg,
+      quotaUsd: result.attributes.prepQuotaUsd,
+      quotaImg: result.attributes.prepQuotaImg + result.attributes.subQuotaImg,
       startedOn: getReadableDate(result.attributes.createdAt),
       renewsOn: getReadableDate(result.attributes.renewsOn),
     });
@@ -94,11 +92,13 @@ export default function BillingInfo() {
                 <li className={styles.table__item}>
                   Current plan: {customerInfo.plan}
                 </li>
+                {customerInfo.prepQuotaUsd > 0 && (
+                  <li className={styles.table__item}>
+                    Prepaid balance: ${customerInfo.prepQuotaUsd.toFixed(1)}
+                  </li>
+                )}
                 <li className={styles.table__item}>
-                  Balance: ${customerInfo.quotaUsd.toFixed(1)}
-                </li>
-                <li className={styles.table__item}>
-                  Image quota: {customerInfo.quotaImg}
+                  Image quota: {customerInfo.prepQuotaImg + customerInfo.subQuotaImg}
                 </li>
                 {customerInfo.plan !== "Prepaid flexible" && (
                   <>
@@ -111,7 +111,9 @@ export default function BillingInfo() {
                     <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
-                      <Link href={`${process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}/p/login/test_fZe4gG2yU6mN3bG5kk`}>
+                      <Link
+                        href={`${process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}/p/login/test_fZe4gG2yU6mN3bG5kk`}
+                      >
                         Cancel subscription
                       </Link>
                     </li>
@@ -125,12 +127,12 @@ export default function BillingInfo() {
                 onClick={() => handleUpgrade(customerInfo.plan)}
               >
                 {buttonClicked ? (
-                    <ReactLoading
-                      width={19}
-                      height={19}
-                      type={"bars"}
-                      color="#ffffff"
-                    />
+                  <ReactLoading
+                    width={19}
+                    height={19}
+                    type={"bars"}
+                    color="#ffffff"
+                  />
                 ) : (
                   <>
                     {customerInfo && customerInfo.plan === "Prepaid flexible"
