@@ -107,34 +107,36 @@ export default function BillingInfo() {
                     <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
                     >
-                      <Link
+                      <a
                         href={`${process.env.NEXT_PUBLIC_CUSTOMER_PORTAL}/p/login/test_fZe4gG2yU6mN3bG5kk`}
                       >
                         Cancel subscription
-                      </Link>
+                      </a>
                     </li>
-                    {customerInfo.plan !== "Annual deal" && <li
-                      className={styles.container__button}
-                      onClick={() => handleUpgrade(customerInfo.plan)}
-                      style={{ marginTop: "8px" }}
-                    >
-                      {buttonClicked ? (
-                        <ReactLoading
-                          width={19}
-                          height={19}
-                          type={"bars"}
-                          color="#ffffff"
-                        />
-                      ) : (
-                        <>
-                          {customerInfo &&
-                          customerInfo.plan === "Prepaid flexible"
-                            ? "Save with monthly plan"
-                            : "Save more with annual plan"}
-                        </>
-                      )}
-                    </li>}
                   </>
+                )}
+                {customerInfo.plan !== "Annual deal" && (
+                  <li
+                    className={styles.container__button}
+                    onClick={() => handleUpgrade(customerInfo.plan)}
+                    style={{ marginTop: "8px" }}
+                  >
+                    {buttonClicked ? (
+                      <ReactLoading
+                        width={19}
+                        height={19}
+                        type={"bars"}
+                        color="#ffffff"
+                      />
+                    ) : (
+                      <>
+                        {customerInfo &&
+                        customerInfo.plan === "Prepaid flexible"
+                          ? "Save with monthly plan"
+                          : "Save more with annual plan"}
+                      </>
+                    )}
+                  </li>
                 )}
               </ul>
             </div>
