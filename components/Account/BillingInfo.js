@@ -101,7 +101,9 @@ export default function BillingInfo() {
                 <li className={styles.table__item}>
                   Image quota: {customerInfo.quotaImg}
                 </li>
-                {(customerInfo.plan !== "Prepaid flexible" || (customerInfo.plan === "Prepaid flexible" && customerInfo.planCancelled)) && (
+                {(customerInfo.plan !== "Prepaid flexible" ||
+                  (customerInfo.plan === "Prepaid flexible" &&
+                    customerInfo.planCancelled)) && (
                   <>
                     <li className={styles.table__item}>
                       {customerInfo.planCancelled
@@ -113,7 +115,9 @@ export default function BillingInfo() {
                       <li
                         className={`${styles.table__item} ${styles.table__item_cancel}`}
                       >
-                        <a href="https://checkout.paintmuse.com/p/login/test_fZe4gG2yU6mN3bG5kk">
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_STRIPE_PORTAL_URL}`}
+                        >
                           Cancel subscription
                         </a>
                       </li>
