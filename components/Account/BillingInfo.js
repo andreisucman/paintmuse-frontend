@@ -118,30 +118,27 @@ export default function BillingInfo() {
               </ul>
             </div>
             <div className={styles.container__row}>
-              <button
-                className={styles.container__button}
-                onClick={() => handleUpgrade(customerInfo.plan)}
-              >
-                {buttonClicked ? (
-                  <ReactLoading
-                    width={19}
-                    height={19}
-                    type={"bars"}
-                    color="#ffffff"
-                  />
-                ) : (
-                  <>
-                    {customerInfo.plan !== "Annual deal" && (
-                      <>
-                        {customerInfo &&
-                        customerInfo.plan === "Prepaid flexible"
-                          ? "Save with monthly plan"
-                          : "Save more with annual plan"}
-                      </>
-                    )}
-                  </>
-                )}
-              </button>
+              {customerInfo.plan !== "Annual deal" && (
+                <button
+                  className={styles.container__button}
+                  onClick={() => handleUpgrade(customerInfo.plan)}
+                >
+                  {buttonClicked ? (
+                    <ReactLoading
+                      width={19}
+                      height={19}
+                      type={"bars"}
+                      color="#ffffff"
+                    />
+                  ) : (
+                    <>
+                      {customerInfo && customerInfo.plan === "Prepaid flexible"
+                        ? "Save with monthly plan"
+                        : "Save more with annual plan"}
+                    </>
+                  )}
+                </button>
+              )}
             </div>
           </div>
         )}
