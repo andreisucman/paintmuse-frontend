@@ -16,6 +16,7 @@ import { fetchGalleryImages } from "../helpers/fetchGalleryImages";
 import Counter from "../components/common/Counter";
 import ReactLoading from "react-loading";
 import placeholder from "../public/assets/placeholder.svg";
+import ErrorPopUp from "../components/common/ErrorPopUp";
 import styles from "../styles/EditExistingArt.module.scss";
 
 export default function EditExistingArt() {
@@ -89,6 +90,8 @@ export default function EditExistingArt() {
     }
   }
 
+  console.log(isError)
+
   function onImageLoad(e) {
     if (aspect) {
       const { width, height } = e.currentTarget;
@@ -130,7 +133,7 @@ export default function EditExistingArt() {
         customerId: currentUser.customerId,
       };
 
-      await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/requestEdit`,
         params,
         {
@@ -138,9 +141,14 @@ export default function EditExistingArt() {
         }
       );
 
+      if (response.data.message) {
+        setIsLoading(false);
+        setIsError({ value: true, message: response.data.message });
+        return;
+      }
+
       setStep((prevValue) => prevValue + 1);
     } catch (err) {
-      console.log(err);
       setIsLoading(false);
       setIsError(
         Object.assign({}, isError, {
@@ -193,6 +201,9 @@ export default function EditExistingArt() {
   return (
     <div className={styles.container}>
       <div className={styles.container__wrapper}>
+        {isError && isError.value && (
+          <ErrorPopUp />
+        )}
         <div className={styles.steps}>
           {!isLoading && (
             <h2 className={styles.container__title}>Edit existing art</h2>

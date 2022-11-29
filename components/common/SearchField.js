@@ -7,6 +7,7 @@ import { useGetMethods, useGetCurrentState } from "./ContextProvider";
 import { useGetCurrentUser } from "../../helpers/useCurrentUser";
 import { handleQueryEntry } from "../../helpers/handleQueryEntry";
 import { handleSetPrompt } from "../../helpers/handleSetPrompt";
+import Alert from "./Alert";
 import styles from "../../styles/components/common/SearchField.module.scss";
 
 export default function SearchField({
@@ -24,11 +25,11 @@ export default function SearchField({
   const currentUser = useGetCurrentUser();
   const router = useRouter();
 
-  useEffect(() =>{
+  useEffect(() => {
     setTimeout(() => {
       setShowFields(true);
-    }, 750)
-  }, [])
+    }, 750);
+  }, []);
 
   useEffect(() => {
     handleSetPrompt(
@@ -56,7 +57,7 @@ export default function SearchField({
     try {
       setIsLoading(true);
 
-      await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/requestImages`,
         {
           prompt,
@@ -68,6 +69,11 @@ export default function SearchField({
         },
         { headers: { "Content-Type": "application/json" } }
       );
+
+      if (response.data.message) {
+        setIsLoading(false);
+        setIsError({ value: true, message: response.data.message });
+      }
     } catch (err) {
       setIsLoading(false);
       setIsError(

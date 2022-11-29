@@ -16,6 +16,7 @@ import Counter from "../components/common/Counter";
 import ReactLoading from "react-loading";
 import placeholder from "../public/assets/placeholder.svg";
 import styles from "../styles/EditExistingArt.module.scss";
+import ErrorPopUp from "../components/common/ErrorPopUp";
 
 function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   return centerCrop(
@@ -93,7 +94,7 @@ export default function EditExistingArt() {
       setCrop(centerAspectCrop(width, height, aspect));
     }
   }
-  
+
   function handleGenerate() {
     try {
       requestVariation();
@@ -118,13 +119,19 @@ export default function EditExistingArt() {
         customerId: currentUser.customerId,
       };
 
-      await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/requestVariation`,
         params,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
+
+      if (response.data.message) {
+        setIsLoading(false);
+        setIsError({ value: true, message: response.data.message });
+        return;
+      }
 
       setStep((prevValue) => prevValue + 1);
     } catch (err) {
@@ -181,6 +188,7 @@ export default function EditExistingArt() {
   return (
     <div className={styles.container}>
       <div className={styles.container__wrapper}>
+        {isError && isError.value && <ErrorPopUp />}
         <div className={styles.steps}>
           {!isLoading && (
             <h2 className={styles.container__title}>Variate composition</h2>
@@ -193,7 +201,10 @@ export default function EditExistingArt() {
                 </h3>
                 <p>{stepDescriptions[step]}</p>
                 {step === 3 && (
-                  <div className={styles.generate__div} style={{justifyContent: "left"}}>
+                  <div
+                    className={styles.generate__div}
+                    style={{ justifyContent: "left" }}
+                  >
                     <Counter />
                     <button
                       className={styles.generate}
@@ -250,7 +261,7 @@ export default function EditExistingArt() {
                           objectFit: "contain",
                           width: completedCrop.width,
                           height: completedCrop.height,
-                          pointerEvents: "none"
+                          pointerEvents: "none",
                         }}
                       />
                     )}
