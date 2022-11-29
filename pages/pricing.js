@@ -13,7 +13,7 @@ export default function Pricing() {
       extrasPrice: null,
       privacy: "Public",
       privacy_message: "Everyone can see the images you generated.",
-      priceId: "price_1M8hiyFOIAGAaeVifGD1zRTR",
+      priceId: process.env.NEXT_PUBLIC_PREPAID_PRICE_ID,
     },
     {
       title: "Monthly saving",
@@ -24,7 +24,7 @@ export default function Pricing() {
       extrasPrice: "0.40",
       privacy: "Private",
       privacy_message: "Only you can see the images you generated.",
-      priceId: "price_1M8ht9FOIAGAaeVilWOZlv9O",
+      priceId: process.env.NEXT_PUBLIC_MONTHLY_PRICE_ID,
     },
     {
       title: "Annual deal",
@@ -35,7 +35,7 @@ export default function Pricing() {
       extrasPrice: "0.32",
       privacy: "Private",
       privacy_message: "Only you can see the images you generated.",
-      priceId: "price_1M8i6tFOIAGAaeViafj6h8oL",
+      priceId: process.env.NEXT_PUBLIC_ANNUAL_PRICE_ID,
     },
   ];
 
