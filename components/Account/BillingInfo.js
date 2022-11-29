@@ -113,32 +113,30 @@ export default function BillingInfo() {
                         Cancel subscription
                       </Link>
                     </li>
+                    {customerInfo.plan !== "Annual deal" && <li
+                      className={styles.container__button}
+                      onClick={() => handleUpgrade(customerInfo.plan)}
+                      style={{ marginTop: "8px" }}
+                    >
+                      {buttonClicked ? (
+                        <ReactLoading
+                          width={19}
+                          height={19}
+                          type={"bars"}
+                          color="#ffffff"
+                        />
+                      ) : (
+                        <>
+                          {customerInfo &&
+                          customerInfo.plan === "Prepaid flexible"
+                            ? "Save with monthly plan"
+                            : "Save more with annual plan"}
+                        </>
+                      )}
+                    </li>}
                   </>
                 )}
               </ul>
-            </div>
-            <div className={styles.container__row}>
-              {customerInfo.plan !== "Annual deal" && (
-                <button
-                  className={styles.container__button}
-                  onClick={() => handleUpgrade(customerInfo.plan)}
-                >
-                  {buttonClicked ? (
-                    <ReactLoading
-                      width={19}
-                      height={19}
-                      type={"bars"}
-                      color="#ffffff"
-                    />
-                  ) : (
-                    <>
-                      {customerInfo && customerInfo.plan === "Prepaid flexible"
-                        ? "Save with monthly plan"
-                        : "Save more with annual plan"}
-                    </>
-                  )}
-                </button>
-              )}
             </div>
           </div>
         )}
