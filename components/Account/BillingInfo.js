@@ -43,7 +43,6 @@ export default function BillingInfo() {
       plan,
       quotaUsd: result.attributes.prepQuotaUsd,
       quotaImg: result.attributes.prepQuotaImg + result.attributes.subQuotaImg,
-      startedOn: getReadableDate(result.attributes.createdAt),
       renewsOn: getReadableDate(result.attributes.renewsOn),
     });
 
@@ -103,9 +102,6 @@ export default function BillingInfo() {
                 {customerInfo.plan !== "Prepaid flexible" && (
                   <>
                     <li className={styles.table__item}>
-                      Started on: {customerInfo.startedOn}
-                    </li>
-                    <li className={styles.table__item}>
                       Renews on: {customerInfo.renewsOn}
                     </li>
                     <li
@@ -135,9 +131,14 @@ export default function BillingInfo() {
                   />
                 ) : (
                   <>
-                    {customerInfo && customerInfo.plan === "Prepaid flexible"
-                      ? "Save with monthly plan"
-                      : "Save more with annual plan"}
+                    {customerInfo.plan !== "Annual deal" && (
+                      <>
+                        {customerInfo &&
+                        customerInfo.plan === "Prepaid flexible"
+                          ? "Save with monthly plan"
+                          : "Save more with annual plan"}
+                      </>
+                    )}
                   </>
                 )}
               </button>
