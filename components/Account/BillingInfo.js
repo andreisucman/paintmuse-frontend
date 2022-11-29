@@ -23,6 +23,7 @@ export default function BillingInfo() {
     const result = await query.first();
 
     const customerPlan = result.attributes.customerPlan;
+    const planCancelled = result.attributes.cancelledPlan !== undefined && result.attributes.cancelledPlan !== null;  
 
     let plan;
     switch (customerPlan) {
@@ -44,6 +45,7 @@ export default function BillingInfo() {
       quotaUsd: result.attributes.prepQuotaUsd,
       quotaImg: result.attributes.prepQuotaImg + result.attributes.subQuotaImg,
       renewsOn: getReadableDate(result.attributes.renewsOn),
+      planCancelled,
     });
 
     setFetched(true);
@@ -102,7 +104,7 @@ export default function BillingInfo() {
                 {customerInfo.plan !== "Prepaid flexible" && (
                   <>
                     <li className={styles.table__item}>
-                      Renews on: {customerInfo.renewsOn}
+                      {customerInfo.planCancelled ? "Expire on: " : "Renews on: "}{customerInfo.renewsOn}
                     </li>
                     <li
                       className={`${styles.table__item} ${styles.table__item_cancel}`}
