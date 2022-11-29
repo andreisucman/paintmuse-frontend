@@ -1,4 +1,5 @@
 import Parse from "parse";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGetCurrentUser } from "../../helpers/useCurrentUser";
 import { getReadableDate } from "../../helpers/getReadableDate";
