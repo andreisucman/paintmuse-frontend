@@ -92,13 +92,13 @@ export default function BillingInfo() {
                 <li className={styles.table__item}>
                   Current plan: {customerInfo.plan}
                 </li>
-                {customerInfo.prepQuotaUsd > 0 && (
+                {customerInfo.plan === "Prepaid flexible" && (
                   <li className={styles.table__item}>
-                    Prepaid balance: ${customerInfo.prepQuotaUsd.toFixed(1)}
+                    Prepaid balance: ${customerInfo.quotaUsd.toFixed(1)}
                   </li>
                 )}
                 <li className={styles.table__item}>
-                  Image quota: {customerInfo.prepQuotaImg + customerInfo.subQuotaImg}
+                  Image quota: {customerInfo.quotaImg}
                 </li>
                 {customerInfo.plan !== "Prepaid flexible" && (
                   <>

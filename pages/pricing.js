@@ -18,10 +18,10 @@ export default function Pricing() {
     {
       title: "Monthly saving",
       subtitle_info:
-        "Better value per image. Extra images are billed per prepaid flexible plan.",
+        "Better value per image. Extra images are billed per discounted prepaid flexible plan.",
       quota: "90",
       price: "29",
-      extrasPrice: "0.45",
+      extrasPrice: "0.40",
       privacy: "Private",
       privacy_message: "Only you can see the images you generated.",
       priceId: "price_1M8ht9FOIAGAaeVilWOZlv9O",
