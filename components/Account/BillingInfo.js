@@ -23,7 +23,7 @@ export default function BillingInfo() {
     const result = await query.first();
 
     const customerPlan = result.attributes.customerPlan;
-    const planCancelled = result.attributes.cancelledPlan !== undefined && result.attributes.cancelledPlan !== null;  
+    const planCancelled = result.attributes.cancelledPlan > 0;
 
     let plan;
     switch (customerPlan) {
@@ -101,20 +101,23 @@ export default function BillingInfo() {
                 <li className={styles.table__item}>
                   Image quota: {customerInfo.quotaImg}
                 </li>
-                {customerInfo.plan !== "Prepaid flexible" && (
+                {(customerInfo.plan !== "Prepaid flexible" || (customerInfo.plan === "Prepaid flexible" && customerInfo.planCancelled)) && (
                   <>
                     <li className={styles.table__item}>
-                      {customerInfo.cancelledPlan > 0 ? "Expire on: " : "Renews on: "}{customerInfo.renewsOn}
+                      {customerInfo.planCancelled
+                        ? "Expires on: "
+                        : "Renews on: "}
+                      {customerInfo.renewsOn}
                     </li>
-                    {customerInfo.cancelledPlan === 0 && <li
-                      className={`${styles.table__item} ${styles.table__item_cancel}`}
-                    >
-                      <a
-                        href="https://checkout.paintmuse.com/p/login/test_fZe4gG2yU6mN3bG5kk"
+                    {!customerInfo.planCancelled && (
+                      <li
+                        className={`${styles.table__item} ${styles.table__item_cancel}`}
                       >
-                        Cancel subscription
-                      </a>
-                    </li>}
+                        <a href="https://checkout.paintmuse.com/p/login/test_fZe4gG2yU6mN3bG5kk">
+                          Cancel subscription
+                        </a>
+                      </li>
+                    )}
                   </>
                 )}
                 {customerInfo.plan !== "Annual deal" && (
