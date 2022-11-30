@@ -7,6 +7,9 @@ export default function Footer() {
       <div className={styles.container__wrapper}>
         <ul className={styles.container__policies_list}>
           <li className={styles.container__policies_item}>
+            <Link href="/usage">Usage</Link>
+          </li>
+          <li className={styles.container__policies_item}>
             <Link href="/terms">Terms</Link>
           </li>
           <li className={styles.container__policies_item}>
