@@ -107,7 +107,7 @@ export default function RegistrationForm({
             ? `${styles.terms__div} ${styles.terms__div_error}`
             : styles.terms__div
         }
-        style={{ marginBottom: "8px", paddingTop: "4px" }}
+        style={{ paddingTop: "4px" }}
       >
         <label
           htmlFor="agree_with_terms"
