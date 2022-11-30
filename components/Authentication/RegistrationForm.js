@@ -75,6 +75,7 @@ export default function RegistrationForm({
             ? `${styles.terms__div} ${styles.terms__div_error}`
             : styles.terms__div
         }
+        style={{ paddingBottom: "4px" }}
       >
         <label
           htmlFor="agree_with_terms"
@@ -106,7 +107,7 @@ export default function RegistrationForm({
             ? `${styles.terms__div} ${styles.terms__div_error}`
             : styles.terms__div
         }
-        style={{marginBottom: "8px"}}
+        style={{ marginBottom: "8px", paddingTop: "4px" }}
       >
         <label
           htmlFor="agree_with_terms"
