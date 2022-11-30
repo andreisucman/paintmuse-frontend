@@ -8,6 +8,12 @@
   gap: 24px;
   width: 100%;
   padding: 32px 0 0 0;
+
+  &__description {
+    padding: 0 16px;
+    text-align: center;
+    line-height: 140%;
+  }
 }
 
 .results {

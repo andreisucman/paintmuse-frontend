@@ -90,8 +90,6 @@ export default function EditExistingArt() {
     }
   }
 
-  console.log(isError)
-
   function onImageLoad(e) {
     if (aspect) {
       const { width, height } = e.currentTarget;
@@ -201,13 +199,14 @@ export default function EditExistingArt() {
   return (
     <div className={styles.container}>
       <div className={styles.container__wrapper}>
-        {isError && isError.value && (
-          <ErrorPopUp />
-        )}
+        {isError && isError.value && <ErrorPopUp />}
         <div className={styles.steps}>
           {!isLoading && (
             <h2 className={styles.container__title}>Edit existing art</h2>
           )}
+          <h3 className={styles.container__description}>
+            Experiment with changing different parts of your art to broaden your vision and save time
+          </h3>
           <div className={styles.steps__wrapper}>
             {!isLoading && step < 5 && (
               <>
