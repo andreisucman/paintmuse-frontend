@@ -22,7 +22,7 @@ export async function startCheckout({
     email: currentUser.email,
   });
 
-  // const stripe = await getStripe();
-  // await stripe.redirectToCheckout({ sessionId: id });
+  const stripe = await getStripe();
+  await stripe.redirectToCheckout({ sessionId: id });
   loadingSetter(false);
 }
