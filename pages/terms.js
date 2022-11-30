@@ -319,29 +319,29 @@ export default function Terms() {
             <p
               className={`${styles.legal__paragraph} ${styles.legal__paragraph_top_padding}`}
             >
-              In addition to other prohibitions as set forth in the Terms of
-              Service, you are prohibited from using the site or its content:
-              (a) for any unlawful purpose; (b) to solicit others to perform or
-              participate in any unlawful acts; (c) to violate any
-              international, federal, provincial or state regulations, rules,
-              laws, or local ordinances; (d) to infringe upon or violate our
-              intellectual property rights or the intellectual property rights
-              of others; (e) to harass, abuse, insult, harm, defame, slander,
-              disparage, intimidate, or discriminate based on gender, sexual
-              orientation, religion, ethnicity, race, age, national origin, or
-              disability; (f) to submit false or misleading information; (g) to
-              upload or transmit viruses or any other type of malicious code
-              that will or may be used in any way that will affect the
-              functionality or operation of the Service or of any related
-              website, other websites, or the Internet; (h) to upload
-              pornographic, political or defamatory content, (i) to collect or
-              track the personal information of others; (j) to spam, phish,
-              pharm, pretext, spider, crawl, or scrape; (k) for any obscene or
-              immoral purpose; or (l) to interfere with or circumvent the
-              security features of the Service or any related website, other
-              websites, or the Internet. We reserve the right to terminate your
-              use of the Service or any related website for violating any of the
-              prohibited uses.
+              In addition to other prohibitions as set forth in the{" "}
+              <Link href="/usage">Usage Policy</Link>, you are prohibited from
+              using the site or its content: (a) for any unlawful purpose; (b)
+              to solicit others to perform or participate in any unlawful acts;
+              (c) to violate any international, federal, provincial or state
+              regulations, rules, laws, or local ordinances; (d) to infringe
+              upon or violate our intellectual property rights or the
+              intellectual property rights of others; (e) to harass, abuse,
+              insult, harm, defame, slander, disparage, intimidate, or
+              discriminate based on gender, sexual orientation, religion,
+              ethnicity, race, age, national origin, or disability; (f) to
+              submit false or misleading information; (g) to upload or transmit
+              viruses or any other type of malicious code that will or may be
+              used in any way that will affect the functionality or operation of
+              the Service or of any related website, other websites, or the
+              Internet; (h) to upload pornographic, political or defamatory
+              content, (i) to collect or track the personal information of
+              others; (j) to spam, phish, pharm, pretext, spider, crawl, or
+              scrape; (k) for any obscene or immoral purpose; or (l) to
+              interfere with or circumvent the security features of the Service
+              or any related website, other websites, or the Internet. We
+              reserve the right to terminate your use of the Service or any
+              related website for violating any of the prohibited uses.
             </p>
             <p className={styles.legal__sub_title}>
               Section 13 - Limitation of Liability
