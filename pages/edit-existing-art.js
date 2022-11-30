@@ -201,8 +201,8 @@ export default function EditExistingArt() {
             <>
               <h2 className={styles.container__title}>Edit existing art</h2>
               <h3 className={styles.container__description}>
-                Experiment changing different parts of your art to broaden your
-                vision and save time
+                Experiment with changing different parts of your art to broaden your
+                vision.
               </h3>
             </>
           )}
