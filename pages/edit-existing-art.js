@@ -131,6 +131,8 @@ export default function EditExistingArt() {
         customerId: currentUser.customerId,
       };
 
+      console.log(params);
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/requestEdit`,
         params,
@@ -202,11 +204,14 @@ export default function EditExistingArt() {
         {isError && isError.value && <ErrorPopUp />}
         <div className={styles.steps}>
           {!isLoading && (
-            <h2 className={styles.container__title}>Edit existing art</h2>
+            <>
+              <h2 className={styles.container__title}>Edit existing art</h2>
+              <h3 className={styles.container__description}>
+                Experiment changing different parts of your art to broaden your
+                vision and save time
+              </h3>
+            </>
           )}
-          <h3 className={styles.container__description}>
-            Experiment changing different parts of your art to broaden your vision and save time
-          </h3>
           <div className={styles.steps__wrapper}>
             {!isLoading && step < 5 && (
               <>

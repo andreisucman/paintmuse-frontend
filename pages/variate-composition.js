@@ -191,11 +191,14 @@ export default function EditExistingArt() {
         {isError && isError.value && <ErrorPopUp />}
         <div className={styles.steps}>
           {!isLoading && (
-            <h2 className={styles.container__title}>Variate composition</h2>
+            <>
+              <h2 className={styles.container__title}>Variate composition</h2>
+              <h3 className={styles.container__description}>
+                Make variations of your art to discover different interplays
+                that can improve your mastery
+              </h3>
+            </>
           )}
-          <h3 className={styles.container__description}>
-            Make variations of your art to discover different interplays that can improve your mastery
-          </h3>
           <div className={styles.steps__wrapper}>
             {!isLoading && step < 4 && (
               <>
