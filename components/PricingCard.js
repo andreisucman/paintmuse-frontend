@@ -28,7 +28,7 @@ export default function PricingCard({ data }) {
         setPrice(`$${data.price} /year`);
       }
     } else {
-      setPrice(`varying`);
+      setPrice(`pay per image`);
     }
   }
 

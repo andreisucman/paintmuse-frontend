@@ -194,7 +194,7 @@ export default function EditExistingArt() {
             <h2 className={styles.container__title}>Variate composition</h2>
           )}
           <h3 className={styles.container__description}>
-            Make variations of existing art to discover different interplays that can improve your mastery
+            Make variations of your art to discover different interplays that can improve your mastery
           </h3>
           <div className={styles.steps__wrapper}>
             {!isLoading && step < 4 && (
