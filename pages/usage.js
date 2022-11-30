@@ -17,8 +17,8 @@ export default function Usage() {
             <p className={styles.legal__paragraph}>
               We want everyone to use our service safely and responsively. By
               that we mean only generating content that is safe and does not
-              violate anyone's rights. Below you can see the types of content
-              that all of our users must avoid to keep their account active.
+              violate anyone's rights. Below you can see the categories our
+              users must avoid to keep their accounts active.
             </p>
             <ul className={styles.legal__list}>
               <li className={styles.legal__item}>
@@ -55,9 +55,11 @@ export default function Usage() {
             <p className={styles.legal__paragraph}>
               Accounts found to be creating such content will be banned. If you
               believe that your account has been mistakenly suspended due to a
-              violation of this policy, please send us a message using the {" "} 
-              <Link href="/contact"><b>contact
-              form</b></Link>.
+              violation of this policy, please send us a message using the{" "}
+              <Link href="/contact">
+                <b>contact form</b>
+              </Link>
+              .
             </p>
 
             <p className={styles.legal__paragraph}>
