@@ -102,7 +102,7 @@ export default function BillingInfo() {
                 </li>
                 {customerInfo.plan === "Prepaid flexible" && (
                   <li className={styles.table__item}>
-                    Prepaid balance: ${customerInfo.quotaUsd}
+                    Prepaid balance: ${customerInfo.quotaUsd.toFixed(1)}
                   </li>
                 )}
                 <li className={styles.table__item}>

@@ -104,8 +104,6 @@ export default function Login() {
       if (authType === "registration") {
         response = await Parse.Cloud.run("register", registrationData);
 
-        console.log(response)
-
         if ((await response.code) === 0) {
           ls.set(
             `Parse/${process.env.NEXT_PUBLIC_APP_ID}/currentUser`,
