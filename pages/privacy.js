@@ -23,7 +23,7 @@ export default function Privacy() {
               If after reviewing this policy, you have additional questions,
               want more information about our privacy practices, or would like
               to make a complaint, please contact us by e-mail at{" "}
-              info@Paintmuse.ai or by mail at the address provided below:
+              info@paintmuse.com or by mail at the address provided below:
             </p>
             <p
               className={`${styles.legal__paragraph} ${styles.legal__paragraph_address}`}

@@ -8,7 +8,7 @@ export default function Terms() {
     <>
       <Head>
         <title>Paintmuse - Terms</title>
-        <meta name="terms" content="Paintmuse.ai - terms of service" />
+        <meta name="terms" content="Paintmuse.com - terms of service" />
       </Head>
       <main className={styles.legal}>
         <div className={styles.legal__wrapper}>
@@ -24,12 +24,12 @@ export default function Terms() {
             >
               This website is operated by Paintmuse a.k.a. SUNCHAIN LTD.
               Throughout the site, the terms "we", "us" and "our" refer to
-              Paintmusek.
+              Paintmuse.
             </p>
             <p
               className={`${styles.legal__paragraph} ${styles.legal__paragraph_top_padding}`}
             >
-              Paintmusek offers this website, including all information, tools
+              Paintmuse offers this website, including all information, tools
               and Services available from this site to you, the user,
               conditioned upon your acceptance of all terms, conditions,
               policies and notices stated here.
@@ -456,7 +456,7 @@ export default function Terms() {
               className={`${styles.legal__paragraph} ${styles.legal__paragraph_top_padding}`}
             >
               Questions about the Terms of Service should be sent to us at{" "}
-              info@Paintmuse.ai.
+              info@paintmuse.com.
             </p>
             <p
               className={`${styles.legal__paragraph} ${styles.legal__paragraph_top_padding}`}
@@ -472,7 +472,7 @@ export default function Terms() {
               128 City Road, EC1V 2NX, London, United Kingdom
             </p>
             <p className={styles.legal__paragraph}>Reg #: 14378160</p>
-            <p className={styles.legal__paragraph}>info@Paintmuse.ai</p>
+            <p className={styles.legal__paragraph}>info@paintmuse.com</p>
             <p className={styles.legal__paragraph}>+442045772359</p>
           </div>
         </div>

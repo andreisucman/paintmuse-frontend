@@ -28,11 +28,13 @@
   &__button {
     display: flex;
     justify-content: center;
+    box-sizing: border-box;
 
     cursor: pointer;
     padding: 16px;
     color: var(--white);
     max-width: 325px;
+    width:100%;
 
     border-radius: 4px;
     transition: all 1s;
@@ -43,6 +45,20 @@
     linear-gradient(336deg, #CE7E7A, rgba(0,0,255,0) 70.71%);
     background-size: 150%;
     animation: flipColorsBack 1s ease forwards;
+
+    &_ordinary {
+      background: unset;
+      border: 1px solid var(--black);
+      color: var(--black);
+      max-height: 51px;
+      transition: all 0.5s;
+
+      &:hover {
+        animation: unset;
+        color: var(--blue);
+        border: 1px solid var(--blue);
+      }
+    }
 
     @include mobile {
       max-width: unset;

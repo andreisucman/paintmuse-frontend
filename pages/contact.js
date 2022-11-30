@@ -67,7 +67,7 @@ export default function Contact() {
           </form>
           {/* <div className={styles.container__info}>
             <ul className={styles.container__info_list}>
-              <li className={styles.container__info_item}>info@Paintmuse.ai</li>
+              <li className={styles.container__info_item}>info@paintmuse.com</li>
               <li className={styles.container__info_item}>+44 20 4577 2359</li>
               <li className={styles.container__info_item_p_top_24}>SunChain LTD</li>
               <li className={styles.container__info_item}>128 City Road, London EC1V 2NX</li>

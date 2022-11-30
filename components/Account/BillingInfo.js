@@ -10,7 +10,8 @@ import ReactLoading from "react-loading";
 export default function BillingInfo() {
   const currentUser = useGetCurrentUser();
   const [customerInfo, setCustomerInfo] = useState(null);
-  const [buttonClicked, setButtonClicked] = useState(false);
+  const [upgradeClicked, setUpgradeClicked] = useState(false);
+  const [topUpClicked, setTopUpClicked] = useState(false);
   const [fetched, setFetched] = useState(false);
 
   async function getCurrentPlan() {
@@ -51,31 +52,37 @@ export default function BillingInfo() {
     setFetched(true);
   }
 
-  async function handleUpgrade(currentPlan) {
-    setButtonClicked(true);
+  useEffect(() => {
+    console.log(customerInfo);
+  }, [customerInfo]);
+
+  async function handleUpgrade(currentPlan, topup, loadingSetter) {
+    loadingSetter(true);
     if (!currentUser) return;
 
     let priceId;
-    switch (await currentPlan) {
-      case "Prepaid flexible":
-        priceId = "price_1M8ht9FOIAGAaeVilWOZlv9O";
-        break;
-      case "Monthly saving":
-        priceId = "price_1M8i6tFOIAGAaeViafj6h8oL";
-        break;
-      default:
-        throw new Error("Plan is undefined");
+    let mode;
+
+    if (currentPlan === "Prepaid flexible" && topup) {
+      priceId = process.env.NEXT_PUBLIC_PREPAID_PRICE_ID;
+      mode = "payment";
+    } else if (currentPlan === "Prepaid flexible" && !topup) {
+      priceId = process.env.NEXT_PUBLIC_MONTHLY_PRICE_ID;
+      mode = "subscription";
+    } else {
+      priceId = process.env.NEXT_PUBLIC_ANNUAL_PRICE_ID;
+      mode = "subscription";
     }
 
     const params = {
       priceId,
       currentUser,
-      loadingSetter: setButtonClicked,
-      mode: "subscription",
+      loadingSetter,
+      mode,
     };
 
     await startCheckout(params);
-    setButtonClicked(false);
+    loadingSetter(false);
   }
 
   useEffect(() => {
@@ -124,13 +131,37 @@ export default function BillingInfo() {
                     )}
                   </>
                 )}
+                <li
+                  className={`${styles.container__button} ${styles.container__button_ordinary}`}
+                  onClick={() =>
+                    handleUpgrade(customerInfo.plan, true, setTopUpClicked)
+                  }
+                  style={{ marginTop: "8px" }}
+                >
+                  {topUpClicked ? (
+                    <ReactLoading
+                      width={19}
+                      height={19}
+                      type={"bars"}
+                      color="#000000"
+                    />
+                  ) : (
+                    <>Top-up balance</>
+                  )}
+                </li>
                 {customerInfo.plan !== "Annual deal" && (
                   <li
                     className={styles.container__button}
-                    onClick={() => handleUpgrade(customerInfo.plan)}
+                    onClick={() =>
+                      handleUpgrade(
+                        customerInfo.plan,
+                        undefined,
+                        setUpgradeClicked
+                      )
+                    }
                     style={{ marginTop: "8px" }}
                   >
-                    {buttonClicked ? (
+                    {upgradeClicked ? (
                       <ReactLoading
                         width={19}
                         height={19}
