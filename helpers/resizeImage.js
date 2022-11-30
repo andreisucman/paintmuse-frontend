@@ -1,6 +1,12 @@
-export function resizeImage(image, setter) {
+export function resizeImage(image, setter, size) {
   // 0.9 represents the width of the container in css
-  const resizeWidth = window.innerWidth * 0.9 - 48;
+  let resizeWidth;
+
+  if (size) {
+    resizeWidth = size;
+  } else {
+    resizeWidth = window.innerWidth * 0.9 - 48;
+  }
   
   const reader = new FileReader();
   reader.readAsDataURL(image);

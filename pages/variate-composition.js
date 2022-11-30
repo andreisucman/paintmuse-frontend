@@ -79,11 +79,7 @@ export default function EditExistingArt() {
       if (window.innerWidth < 733) {
         resizeImage(e.target.files[0], setImgSrc);
       } else {
-        const reader = new FileReader();
-        reader.addEventListener("load", () =>
-          setImgSrc(reader.result?.toString() || "")
-        );
-        reader.readAsDataURL(e.target.files[0]);
+        resizeImage(e.target.files[0], setImgSrc, 800);
       }
     }
   }
