@@ -55,8 +55,9 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 16px 8px 16px 8px;
+    padding: 8px;
     border: 1px solid transparent;
+    line-height: 140%;
 
     &_error {
       border: 1px solid red;

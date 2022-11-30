@@ -100,6 +100,38 @@ export default function RegistrationForm({
           </Link>
         </p>
       </div>
+      <div
+        className={
+          authErrors.usage
+            ? `${styles.terms__div} ${styles.terms__div_error}`
+            : styles.terms__div
+        }
+        style={{marginBottom: "8px"}}
+      >
+        <label
+          htmlFor="agree_with_terms"
+          className={styles.terms__checkbox_label}
+        >
+          <input
+            className={styles.terms__checkbox_input}
+            id="agree_with_terms"
+            type="checkbox"
+            onChange={() =>
+              setRegistrationData(
+                Object.assign({}, registrationData, {
+                  usageAccepted: !registrationData.usageAccepted,
+                })
+              )
+            }
+          />
+        </label>
+        <p>
+          I agree to generate only safe content in accordance with the{" "}
+          <Link href="/usage" className={styles.terms__link}>
+            Usage Policy
+          </Link>
+        </p>
+      </div>
       <button
         className={styles.container__button}
         onClick={() => handleAuthentication({ authType: "registration" })}

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import ToTopButton from "../components/common/ToTopButton";
+import Link from "next/link";
 import styles from "../styles/Legal.module.scss";
 
 export default function Usage() {
@@ -54,8 +55,9 @@ export default function Usage() {
             <p className={styles.legal__paragraph}>
               Accounts found to be creating such content will be banned. If you
               believe that your account has been mistakenly suspended due to a
-              violation of this policy, please send us a message using the <Link href="/contact">contact
-              form</Link>.
+              violation of this policy, please send us a message using the {" "} 
+              <Link href="/contact"><b>contact
+              form</b></Link>.
             </p>
 
             <p className={styles.legal__paragraph}>

@@ -19,6 +19,7 @@ export default function Login() {
   const [loginData, setLoginData] = useState({});
   const [registrationData, setRegistrationData] = useState({
     termsAccepted: false,
+    usageAccepted: false,
   });
   const [authErrors, setAuthErrors] = useState({});
   const [messageFromServer, setMessageFromServer] = useState({});
@@ -52,12 +53,16 @@ export default function Login() {
     } else {
       if (
         !data.termsAccepted ||
+        !data.usageAccepted ||
         !data.passwordOne ||
         !data.passwordTwo ||
         !data.email
       ) {
         if (!data.termsAccepted) {
           setAuthErrors(Object.assign({}, authErrors, { terms: true }));
+        }
+        if (!data.usageAccepted) {
+          setAuthErrors(Object.assign({}, authErrors, { usage: true }));
         }
         if (!data.email) {
           setAuthErrors(Object.assign({}, authErrors, { email: true }));
