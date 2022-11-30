@@ -16,32 +16,32 @@ export default function Usage() {
           <div className={styles.legal__container}>
             <p className={styles.legal__paragraph}>
               We want everyone to use our service safely and responsively. By
-              that we mean only generating content that is not disturbing and does not
-              violate anyone's rights. Below you can see the categories our
-              users must avoid to keep their accounts active.
+              that we mean only generating content that is not disturbing and
+              does not violate anyone's rights. Below you can see the categories
+              our users must avoid to keep their accounts active.
             </p>
             <ul className={styles.legal__list}>
               <li className={styles.legal__item}>
-                <u>Hate:</u> Content expresses, incites, or promotes hate based
-                on identity.
+                <u>Hate:</u> Content that expresses, incites, or promotes hate
+                based on identity.
               </li>
               <li className={styles.legal__item}>
-                <u>Harrasment:</u> content that intends to harrass, threaten or
+                <u>Harrasment:</u> Content that intends to harrass, threaten or
                 bully an individual.
               </li>
               <li className={styles.legal__item}>
                 <u>Violence:</u> Content that promotes or glorifies violence or
-                celebrates the suffering or humiliation of others
+                celebrates the suffering or humiliation of others.
               </li>
               <li className={styles.legal__item}>
                 <u>Self-harm:</u> Content that promotes, encourages, or depicts
                 acts of self-harm, such as suicide, cutting, and eating
-                disorders
+                disorders.
               </li>
               <li className={styles.legal__item}>
                 <u>Sexual:</u> Content meant to arouse sexual excitement, such
                 as the description of sexual activity, or that promotes sexual
-                services (excluding sex education and wellness)
+                services (excluding sex education and wellness).
               </li>
               <li className={styles.legal__item}>
                 <u>Political:</u> Content attempting to influence the political
@@ -49,17 +49,14 @@ export default function Usage() {
               </li>
               <li className={styles.legal__item}>
                 <u>Deception:</u> Content that is false or misleading, such as
-                attempting to defraud individuals or spread disinformation
+                attempting to defraud individuals or spread disinformation.
               </li>
             </ul>
             <p className={styles.legal__paragraph}>
-              Accounts found to be creating such content will be suspended. If you
-              believe that your account has been mistakenly suspended due to a
-              violation of this policy, please send us a message using this{" "}
-              <Link href="/contact">
-                contact form
-              </Link>
-              .
+              Accounts found to be violating this policy will be suspended. If
+              you believe that your account has been mistakenly suspended,
+              please send us a message using this contact form:{" "}
+              <Link href="/contact">link</Link>.
             </p>
 
             <p className={styles.legal__paragraph}>
