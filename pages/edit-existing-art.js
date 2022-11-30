@@ -78,15 +78,15 @@ export default function EditExistingArt() {
     if (e.target.files && e.target.files.length > 0) {
       setCrop(undefined);
 
-      if (window.innerWidth < 733) {
+      // if (window.innerWidth < 733) {
         resizeImage(e.target.files[0], setImgSrc);
-      } else {
-        const reader = new FileReader();
-        reader.addEventListener("load", () =>
-          setImgSrc(reader.result?.toString() || "")
-        );
-        reader.readAsDataURL(e.target.files[0]);
-      }
+      // } else {
+      //   const reader = new FileReader();
+      //   reader.addEventListener("load", () =>
+      //     setImgSrc(reader.result?.toString() || "")
+      //   );
+      //   reader.readAsDataURL(e.target.files[0]);
+      // }
     }
   }
 
