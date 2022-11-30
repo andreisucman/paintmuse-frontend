@@ -63,10 +63,10 @@ export default function BillingInfo() {
     let priceId;
     let mode;
 
-    if (currentPlan === "Prepaid flexible" && topup) {
+    if (topup) {
       priceId = process.env.NEXT_PUBLIC_PREPAID_PRICE_ID;
       mode = "payment";
-    } else if (currentPlan === "Prepaid flexible" && !topup) {
+    } else if (currentPlan === "Prepaid flexible") {
       priceId = process.env.NEXT_PUBLIC_MONTHLY_PRICE_ID;
       mode = "subscription";
     } else {
