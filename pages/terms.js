@@ -1,6 +1,6 @@
 import Head from "next/head";
-import styles from "../styles/Legal.module.scss";
 import Link from "next/link";
+import styles from "../styles/Legal.module.scss";
 import ToTopButton from "../components/common/ToTopButton";
 
 export default function Terms() {

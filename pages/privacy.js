@@ -14,7 +14,7 @@ export default function Privacy() {
           <h1 className={styles.legal__title}>Privacy Policy</h1>
           <div className={styles.legal__container}>
             <p className={styles.legal__paragraph}>
-              This Privacy Policy describes how Paintmuse (the “Site” or “we”)
+              This Privacy Policy describes how Paintmuse (the "Site" or "we")
               collects, uses, and discloses your Personal Information when you
               visit or interact with the Site.
             </p>
@@ -28,7 +28,7 @@ export default function Privacy() {
             <p
               className={`${styles.legal__paragraph} ${styles.legal__paragraph_address}`}
             >
-              SunChain LTD, 128 City Road, London, EC1V 2NX
+              SUNCHAIN LTD, 128 City Road, London, EC1V 2NX
             </p>
             <p className={styles.legal__sub_title}>Collecting Information</p>
             <p className={styles.legal__paragraph_less_bottom}>
@@ -37,7 +37,7 @@ export default function Privacy() {
               to process your interaction with the Site. We may also collect
               additional information if you contact us for customer support. In
               this Privacy Policy, we refer to any information about an
-              identifiable individual as “Personal Information”. See the list
+              identifiable individual as "Personal Information". See the list
               below for more information about what Personal Information we
               collect and why.
             </p>
@@ -409,7 +409,7 @@ export default function Privacy() {
             </p>
             <p className={styles.legal__paragraph}>
               Please note that because there is no consistent industry
-              understanding of how to respond to “Do Not Track” signals, we do
+              understanding of how to respond to "Do Not Track" signals, we do
               not alter our data collection and usage practices when we detect
               such a signal from your browser.
             </p>
