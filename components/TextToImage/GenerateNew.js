@@ -78,7 +78,7 @@ export default function GenerateNew({
       <div className={styles.generate_new}>
         <h3 className={styles.generate_new__description}>
           Create unique mood boards, sketches and concept images that expand
-          your imagination
+          your imagination.
         </h3>
         <SearchField
           text={buttonText}
