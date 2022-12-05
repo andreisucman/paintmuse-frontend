@@ -52,10 +52,6 @@ export default function BillingInfo() {
     setFetched(true);
   }
 
-  useEffect(() => {
-    console.log(customerInfo);
-  }, [customerInfo]);
-
   async function handleUpgrade(currentPlan, topup, loadingSetter) {
     loadingSetter(true);
     if (!currentUser) return;

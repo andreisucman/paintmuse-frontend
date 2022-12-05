@@ -17,7 +17,7 @@ export function handleSetPrompt(
     medium === process.env.NEXT_PUBLIC_DEFAULT_MEDIUM &&
     style === process.env.NEXT_PUBLIC_DEFAULT_STYLE
   ) {
-    promptSetter(`Painting of ${query}`);
+    promptSetter(query);
   } else if (
     medium !== process.env.NEXT_PUBLIC_DEFAULT_MEDIUM &&
     style !== process.env.NEXT_PUBLIC_DEFAULT_STYLE
