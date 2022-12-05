@@ -4,7 +4,7 @@ import { useGetMethods } from "./ContextProvider";
 
 export default function Counter() {
   const { setImageCount } = useGetMethods();
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     if (!setImageCount) return;
