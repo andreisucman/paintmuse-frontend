@@ -26,18 +26,14 @@ export async function fetchGalleryImages({
       fetchOnce,
     };
 
-    console.log(data);
-    
     const response = await Parse.Cloud.run(functionName, data);
 
     if (response.length === 0) return;
     setGalleryImages([...galleryImages, ...response]);
 
-    // if (!fetchOnce) {
     if (setSelectedImage) {
       setSelectedImage(response[0]);
     }
-    // }
 
     if (setIsLoading) {
       setIsLoading(false);

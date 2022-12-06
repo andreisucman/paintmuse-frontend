@@ -2,6 +2,7 @@ import Parse from "parse";
 import { useState, useEffect } from "react";
 import GenerateNew from "./GenerateNew";
 import GeneratedBefore from "./GeneratedBefore";
+import { useGetCurrentUser } from "../../helpers/useCurrentUser";
 import { useGetCurrentState, useGetMethods } from "../common/ContextProvider";
 import { fetchLatestPlaceholders } from "../../helpers/fetchLatestPlaceholders";
 import styles from "../../styles/components/TextToImage/TextToImage.module.scss";
@@ -14,9 +15,11 @@ export default function TextToImage() {
   const { style, medium, isLoading } =
     useGetCurrentState();
   const [page, setPage] = useState(1);
+  const currentUser = useGetCurrentUser();
 
   useEffect(() => {
     if (!setQuery && !setStyle && !setMedium) return;
+    if (currentUser === undefined) return;
 
     fetchLatestPlaceholders({
       limit: 3,
@@ -24,11 +27,12 @@ export default function TextToImage() {
       querySetter: setQuery,
       mediumSetter: setMedium,
       styleSetter: setStyle,
+      customerId: currentUser && currentUser.customerId,
       fetchOnce: true,
       functionName: "fetchTextToImage",
       fields: ["query", "medium", "style", "url", "imageId"]
     });
-  }, [setQuery, setStyle, setMedium]);
+  }, [setQuery, setStyle, setMedium, currentUser]);
 
   useEffect(() => {
     fetchLatestPlaceholders({
