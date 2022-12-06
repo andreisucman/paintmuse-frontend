@@ -136,7 +136,7 @@ export default function EditExistingArt() {
       setIsError(
         Object.assign({}, isError, {
           value: true,
-          message: `An error occured. Make sure you upload a PNG/JPG image and try again.`,
+          message: `An error occured. Make sure you upload a PNG/JPG image and its size is maximum 1024 x 1024 px.`,
         })
       );
     }
