@@ -38,6 +38,7 @@ export default function TextToImage() {
     fetchLatestPlaceholders({
       limit: 4,
       imageSetter: setGalleryImages,
+      customerId: currentUser && currentUser.customerId,
       page,
       functionName: "fetchTextToImage",
       fields: ["query", "medium", "style", "url", "imageId"]
