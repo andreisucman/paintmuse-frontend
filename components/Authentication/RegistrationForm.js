@@ -69,6 +69,19 @@ export default function RegistrationForm({
         }
         autoComplete="new-password"
       />
+      <input
+        className={styles.container__input}
+        type="text"
+        placeholder="Have a promo code? (optional)"
+        onChange={(e) =>
+          handleFormEntry(
+            e,
+            registrationData,
+            "promoCode",
+            setRegistrationData
+          )
+        }
+      />
       <div
         className={
           authErrors.terms
