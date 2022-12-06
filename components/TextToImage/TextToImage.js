@@ -32,7 +32,7 @@ export default function TextToImage() {
       functionName: "fetchTextToImage",
       fields: ["query", "medium", "style", "url", "imageId"]
     });
-  }, [setQuery, setStyle, setMedium, currentUser]);
+  }, [setQuery, setStyle, setMedium]);
 
   useEffect(() => {
     fetchLatestPlaceholders({
