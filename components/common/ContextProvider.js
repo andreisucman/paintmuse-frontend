@@ -18,7 +18,6 @@ export default function ContextProvider({ children }) {
   const [methods, setMethods] = useState({});
   const router = useRouter();
 
-  const [immediateResult, setImmediateResult] = useState(null);
   const [showEditImageModal, setShowEditImageModal] = useState(false);
   const [showCreateVariationModal, setShowCreateVariationModal] =
     useState(false);
@@ -81,7 +80,6 @@ export default function ContextProvider({ children }) {
       showEditImageModal,
       showCreateVariationModal,
       activeLink,
-      immediateResult,
       imageCount,
       showResetPassword,
       query,
@@ -103,7 +101,6 @@ export default function ContextProvider({ children }) {
     showEditImageModal,
     showCreateVariationModal,
     activeLink,
-    immediateResult,
     imageCount,
     showResetPassword,
     query,
@@ -127,7 +124,6 @@ export default function ContextProvider({ children }) {
       setShowEditImageModal,
       setShowCreateVariationModal,
       setActiveLink,
-      setImmediateResult,
       setImageCount,
       setShowResetPassword,
       setQuery,

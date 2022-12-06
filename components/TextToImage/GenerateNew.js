@@ -18,7 +18,6 @@ export default function GenerateNew({
   medium,
   isLoading,
   setIsLoading,
-  immediateResult,
 }) {
   const currentUser = useGetCurrentUser();
   const { query, isError } = useGetCurrentState();
@@ -54,12 +53,6 @@ export default function GenerateNew({
     subscribeToTable();
     setSubscribed(true);
   }, [setIsLoading, currentUser]);
-
-  useEffect(() => {
-    if (immediateResult) {
-      setNewlyGeneratedImages(immediateResult.data);
-    }
-  }, [immediateResult]);
 
   useEffect(() => {
     if (!newlyGeneratedImages) return;

@@ -18,7 +18,7 @@ export default function Counter() {
         setCount((prevValue) => prevValue + 1);
         break;
       case "decrement":
-        if (count - 1 < 3) return;
+        if (count - 1 < 1) return;
         setCount((prevValue) => prevValue - 1);
         break;
       default:

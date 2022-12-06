@@ -11,7 +11,7 @@ export default function TextToImage() {
   const [galleryImages, setGalleryImages] = useState([]);
   const { setQuery, setStyle, setMedium, fetchGalleryImages, setIsLoading } =
     useGetMethods();
-  const { style, medium, isLoading, immediateResult } =
+  const { style, medium, isLoading } =
     useGetCurrentState();
   const [page, setPage] = useState(1);
 
@@ -51,7 +51,6 @@ export default function TextToImage() {
           setNewlyGeneratedImages={setNewlyGeneratedImages}
           style={style}
           medium={medium}
-          immediateResult={immediateResult}
         />
         <GeneratedBefore
           buttonText={"Search"}
