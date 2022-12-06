@@ -62,7 +62,7 @@ export default function ContextProvider({ children }) {
       { value: "sketch", label: "Sketch" },
       { value: "line_art", label: "Line art" },
       { value: "grafiti", label: "Grafiti" },
-      { value: "retro_vintage", label: "Retro_Vintage" },
+      { value: "retro_vintage", label: "Retro / Vintage" },
       { value: "linocut", label: "Linocut" },
       { value: "doodle", label: "Doodle" },
       { value: "anime", label: "Pop art" },
