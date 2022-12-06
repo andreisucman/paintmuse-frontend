@@ -31,8 +31,8 @@ export default function ContextProvider({ children }) {
   const [prompt, setPrompt] = useState("");
   const [isError, setIsError] = useState({
     value: false,
-    message: ""
-  })
+    message: "",
+  });
 
   const [querySearch, setQuerySearch] = useState(
     "Describe the image you're looking for"
@@ -56,7 +56,19 @@ export default function ContextProvider({ children }) {
       { value: "impressionism", label: "Impressionism" },
       { value: "abstract", label: "Abstract" },
       { value: "surrealism", label: "Surrealism" },
-      { value: "pop_art", label: "Pop art" }
+      { value: "pop_art", label: "Pop art" },
+      { value: "flat", label: "Flat" },
+      { value: "isometric", label: "Isometric" },
+      { value: "sketch", label: "Sketch" },
+      { value: "line_art", label: "Line art" },
+      { value: "grafiti", label: "Grafiti" },
+      { value: "retro_vintage", label: "Retro_Vintage" },
+      { value: "linocut", label: "Linocut" },
+      { value: "doodle", label: "Doodle" },
+      { value: "anime", label: "Pop art" },
+      { value: "chibi", label: "Chibi" },
+      { value: "caricature", label: "Caricature" },
+      { value: "pixel_art", label: "Pixel art" },
     ],
     mediums: [
       { value: "select_medium", label: "Select medium" },
@@ -68,6 +80,10 @@ export default function ContextProvider({ children }) {
       { value: "encaustic", label: "Encaustic" },
       { value: "spray_paint", label: "Fresco" },
       { value: "digital", label: "Digital" },
+      { value: "vector", label: "Vector" },
+      { value: "cartoon", label: "Cartoon" },
+      { value: "pencil", label: "Pencil" },
+      { value: "3d_graphic", label: "3D Graphic" },
     ],
   });
 
@@ -116,7 +132,7 @@ export default function ContextProvider({ children }) {
     galleryImages,
     showImageModal,
     isLoading,
-    isError
+    isError,
   ]);
 
   useEffect(() => {
@@ -139,7 +155,7 @@ export default function ContextProvider({ children }) {
       setGalleryImages,
       setShowImageModal,
       setIsLoading,
-      setIsError
+      setIsError,
     });
   }, []);
 
